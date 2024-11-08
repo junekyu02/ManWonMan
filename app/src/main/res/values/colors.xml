@@ -2,4 +2,16 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="blue">#277EFF</color>
+
+
+
+
+    <color name="button_register_normal_color">#D2D8DD</color>
+    <color name="button_register_pressed_color">#A6AEB3</color>
+
+    <color name="g.red">#F12727</color>
+    <color name="g.red2">#CF2626</color>
+
+
 </resources>
