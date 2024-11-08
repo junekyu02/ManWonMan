@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
             //곽영찬
             //사인페
-            //박상현
+            //박상현test2
         });
     }
 }
