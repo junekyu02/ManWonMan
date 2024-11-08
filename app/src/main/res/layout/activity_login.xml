@@ -13,7 +13,6 @@
     <!-- 최상위 참조를 위해 -->
 
 
-
     <TextView
         android:id="@+id/headerText"
         android:layout_width="358dp"
@@ -43,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:background="@drawable/password_border2"
-        android:hint=" "
+        android:hint=""
         android:inputType="textEmailAddress"
         android:padding="10dp" />
 
