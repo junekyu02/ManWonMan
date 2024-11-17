@@ -13,7 +13,7 @@
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
         <activity
-            android:name=".SignUpActivity"
+            android:name=".YakGwanActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 로그인 화면이 첫 화면으로 나오도록 설정 -->
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 로그인 화면이 첫 화면으로 나오도록 설정 -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -33,7 +41,7 @@
         </activity> <!-- MainActivity는 이제 로그인 후에 이동할 화면으로 설정 -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

@@ -13,5 +13,10 @@
     <color name="g.red">#F12727</color>
     <color name="g.red2">#CF2626</color>
 
+    <!--    google color -->
+    <color name="red">#F14336</color>
+    <color name="yellow">#FBBB00</color>
+    <color name="green">#18B610</color>
+
 
 </resources>
