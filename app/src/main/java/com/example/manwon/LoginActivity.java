@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.manwon.databinding.ActivityLoginBinding;
 
-//import com.unit_3.sogong_test.databinding.ActivityLoginBinding;
+//dd
 
 public class LoginActivity extends AppCompatActivity {
 
