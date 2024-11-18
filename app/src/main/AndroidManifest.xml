@@ -12,21 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
-
         <activity
-            android:name=".YakGwanActivity"
+            android:name=".ItemRegist_gonggu"
             android:exported="false" />
-
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ItemRegist_exchange"
             android:exported="false" />
-
         <activity
-            android:name=".LoginActivity"
+            android:name=".ItemRegistrationActivity"
             android:exported="false" />
-
         <activity
-            android:name=".SplashActivity"
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,8 +30,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".YakGwanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SplashActivity"
+            android:exported="false"/>
 
-        <!-- MainActivity는 이제 로그인 후에 이동할 화면으로 설정 -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />

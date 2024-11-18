@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/regist_back_button"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="17dp"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:text="물물교환 할 물건 등록하기"/>
+
+    <TextView
+        android:id="@+id/back_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="320dp"
+        android:layout_marginTop="10dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#A9A9A9"
+        android:text="임시저장"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="1. 제목"/>
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="작성하기"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="2. 교환할 물품 유형"/>
+    <EditText
+        android:id="@+id/itemtype1"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="3. 구매일자"/>
+    <EditText
+        android:id="@+id/purchase_date"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="작성하기"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="4. 파손도(하자율)"/>
+    <EditText
+        android:id="@+id/damage_rate"
+        android:layout_width="275dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="파손 정도에 따라 '80% 손상', '50% 손상', '파손 없음' 중 한가지로 작성하기"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="5. 기타 (사용 횟수 및 특이사항 작성 가능)"/>
+    <EditText
+        android:id="@+id/etc"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        android:gravity="start|top"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="작성하기"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="6. 교환을 희망하는 물품 유형"/>
+    <EditText
+        android:id="@+id/itemtype2"
+        android:layout_width="250dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:text="7. 물품의 상세 이미지 및 URL 등록하고 교환하러 가기!"/>
+    <EditText
+        android:id="@+id/url"
+        android:layout_width="320dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="2dp"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="이미지에 대한 URL 작성하기"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <!-- TextView to display validation message -->
+    <TextView
+        android:id="@+id/urlValidationMessage"
+        android:layout_width="85dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginStart="220dp"
+        android:textSize="10sp"
+        android:textColor="#FF0000"
+        android:visibility="invisible"
+        android:text="Invalid URL format"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:src="@drawable/regist_camera_button"
+        android:background="@drawable/regist_rounded_edittext"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="2dp"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:textColor="#A9A9A9"
+        android:text="이미지 등록하기"/>
+
+</LinearLayout>
