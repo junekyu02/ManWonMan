@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
         <activity
+            android:name=".develop_yc"
+            android:exported="false" />
+        <activity
             android:name=".YakGwanActivity"
             android:exported="true">
             <intent-filter>
