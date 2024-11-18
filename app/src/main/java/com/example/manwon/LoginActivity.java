@@ -14,6 +14,7 @@ import com.example.manwon.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
+    
     private boolean isPasswordVisible = false;
     private ActivityLoginBinding binding;
 
