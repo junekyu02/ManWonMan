@@ -36,6 +36,8 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(LoginActivity.this, "로그인 시도 (테스트 메시지)", Toast.LENGTH_SHORT).show();
             }
+            Intent intent = new Intent(LoginActivity.this, MapViewActivity.class );
+            startActivity(intent);
         });
 
 //        // 비밀번호 찾기 버튼 클릭 리스너

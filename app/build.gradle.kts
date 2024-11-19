@@ -32,6 +32,9 @@ android {
     viewBinding {
         enable = true
     }
+    buildFeatures {
+        dataBinding = true
+    }
 
 
     dependencies {
@@ -46,6 +49,9 @@ android {
     }
 }
 dependencies {
+    implementation ("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.naver.maps:map-sdk:3.19.1")
+    implementation ("net.sourceforge.jexcelapi:jxl:2.6.12")
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
