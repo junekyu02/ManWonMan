@@ -93,6 +93,9 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
 
         binding.previousBtn.setOnClickListener(view -> finish());
 
+        // BottomSheetDialog 초기화
+        bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialogTheme);
+
         bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, null);
 
         if (!hasPermission()) {
@@ -119,20 +122,25 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             btn2bg.setBackgroundResource(R.drawable.city_button);
             addressBtn1.setTextColor(Color.parseColor("#ffffff"));
             addressBtn2.setTextColor(Color.parseColor("#000000"));
+
             if (addressBtn1.getText().toString().equals("          +")) {
-                if (!addressName.isEmpty()) {
+                if (!addressName.isEmpty() && bottomSheetDialog != null) {
                     readExcel(addressName);
                     ((ListView) bottomSheetView.findViewById(R.id.listView)).setAdapter(listViewAdapter);
                     bottomSheetDialog.setContentView(bottomSheetView);
                     addressBtn1.setText("          +");
                     bottomSheetDialog.show();
                     addressName = "";
+                } else {
+                    Toast.makeText(this, "No address selected or dialog not initialized.", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 btn1bg.setBackgroundResource(R.drawable.button_default);
                 cameraMove(addressBtn1.getText().toString());
             }
         });
+
+
 
         delbtn1.setOnClickListener(view -> {
             addressBtn1.setText("          +");
@@ -383,35 +391,41 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
                         break;
                 }
 
-                nearCity.clear();
-                if (sheet != null) {
-                    int rowTotal = sheet.getRows() - 1;
-                    Log.d("rowTotal", String.valueOf(rowTotal));
-
-                    int row = 1;
-                    while (row < rowTotal) {
-                        String contents = sheet.getCell(1, row).getContents();
-                        if (contents.equals(localName)) {
-                            String x = sheet.getCell(5, row).getContents();
-                            String y = sheet.getCell(6, row).getContents();
-                            if (!sheet.getCell(2, row).getContents().isEmpty() &&
-                                    sheet.getCell(3, row).getContents().isEmpty() &&
-                                    !sheet.getCell(5, row).getContents().isEmpty() &&
-                                    !sheet.getCell(6, row).getContents().isEmpty()) {
-                                if (calculateDistance(curlatitude, curlongitude, Double.parseDouble(x), Double.parseDouble(y)) < 10000.0)
-                                    nearCity.add(localName + " " + sheet.getCell(2, row).getContents());
-                            }
-                        }
-                        row++;
-                    }
-                    listViewAdapter.notifyDataSetChanged();
+                if (sheet == null) {
+                    Log.e("READ_EXCEL", "Sheet not found for adminArea: " + adminArea);
+                    return;
                 }
+
+                nearCity.clear();
+                int rowTotal = sheet.getRows() - 1;
+                Log.d("READ_EXCEL", "Total rows: " + rowTotal);
+
+                for (int row = 1; row <= rowTotal; row++) {
+                    String contents = sheet.getCell(1, row).getContents();
+                    if (contents.equals(localName)) {
+                        String x = sheet.getCell(5, row).getContents();
+                        String y = sheet.getCell(6, row).getContents();
+                        if (x.isEmpty() || y.isEmpty()) {
+                            Log.e("READ_EXCEL", "Invalid coordinates at row: " + row);
+                            continue;
+                        }
+                        double latitude = Double.parseDouble(x);
+                        double longitude = Double.parseDouble(y);
+
+                        if (calculateDistance(curlatitude, curlongitude, latitude, longitude) < 10000.0) {
+                            String cityName = sheet.getCell(2, row).getContents();
+                            nearCity.add(localName + " " + cityName);
+                        }
+                    }
+                }
+
+                listViewAdapter.notifyDataSetChanged();
             }
         } catch (IOException | BiffException e) {
-            Log.i("READ_EXCEL1", e.getMessage());
-            e.printStackTrace();
+            Log.e("READ_EXCEL", "Error reading Excel file", e);
         }
     }
+
 
     private float calculateDistance(double lat1, double lon1, double lat2, double lon2) {
         Location locationA = new Location("point A");
