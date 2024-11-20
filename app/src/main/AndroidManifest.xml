@@ -18,6 +18,9 @@
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
         <activity
+            android:name=".ItemRegist_Gift"
+            android:exported="true" />
+        <activity
             android:name=".ListViewAdapter"
             android:exported="false" />
 

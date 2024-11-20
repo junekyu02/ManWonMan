@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingStart="40dp"
+    android:paddingTop="16dp">
+
+    <!-- 백버튼 -->
+
+    <!-- 제목 -->
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="뒤로가기 버튼"
+        android:scaleType="fitCenter"
+        android:src="@drawable/regist_back_button" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="교환 할 기프티콘 등록하기"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <!-- 임시저장 -->
+    <TextView
+        android:id="@+id/gift_back_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="10dp"
+        android:text="임시저장"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#A9A9A9" />
+
+    <!-- 제목 입력 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="1. 제목"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/gift_title"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:hint="작성하기"
+        android:background="@drawable/regist_rounded_edittext"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:textSize="14sp"
+        android:inputType="text" />
+
+    <!-- 교환할 유형 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="2. 교환할 유형"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/gift_itemtype1"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:background="@drawable/regist_rounded_edittext"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:textSize="14sp"
+        android:inputType="text" />
+
+    <!-- 만료일 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="3. 만료일"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/gift_expiration_date"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:hint="작성하기"
+        android:background="@drawable/regist_rounded_edittext"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:textSize="14sp"
+        android:inputType="date" />
+
+    <!-- 상세내용 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="4. 상세내용"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/gift_details"
+        android:layout_width="250dp"
+        android:layout_height="120dp"
+        android:hint="작성하기"
+        android:background="@drawable/regist_rounded_edittext"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:textColorHint="#FFFFFF"
+        android:textSize="14sp"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <!-- 희망 쿠폰 유형 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="5. 교환을 희망하는 쿠폰 유형"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+    <EditText
+        android:id="@+id/gift_preferred_coupon"
+        android:layout_width="250dp"
+        android:layout_height="20dp"
+        android:hint="작성하기"
+        android:background="@drawable/regist_rounded_edittext"
+        android:paddingStart="8dp"
+        android:textColorHint="#FFFFFF"
+        android:textSize="14sp"
+        android:inputType="text" />
+
+    <!-- 쿠폰 이미지 올리기 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="6. 쿠폰 이미지 올리기"
+        android:textSize="14sp"
+        android:textStyle="bold" />
+
+
+
+
+    <ImageButton
+        android:id="@+id/gift_upload_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/regist_camera_button"
+        android:contentDescription="이미지 업로드 버튼"
+        android:background="?attr/selectableItemBackgroundBorderless" />
+
+</LinearLayout>
