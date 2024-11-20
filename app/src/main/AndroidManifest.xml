@@ -18,6 +18,33 @@
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
         <activity
+            android:name=".Ice_CreamActivity"
+            android:exported="true" />
+        <activity
+            android:name=".VoucherActivity"
+            android:exported="true" />
+        <activity
+            android:name=".BreadActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ConvenienceActivity"
+            android:exported="true" />
+        <activity
+            android:name=".TravelActivity"
+            android:exported="true" />
+        <activity
+            android:name=".FastFoodActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ChickenActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CafeDessertActivity"
+            android:exported="true" />
+        <activity
+            android:name=".Gift_Card_MainActivity"
+            android:exported="true" />
+        <activity
             android:name=".ItemRegist_Gift"
             android:exported="true" />
         <activity

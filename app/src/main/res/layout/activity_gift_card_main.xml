@@ -1,0 +1,135 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!-- 상단 검색바 영역 -->
+
+
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="391dp"
+        android:layout_height="62dp"
+        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/gift_searchbar_background"
+        android:drawablePadding="10dp"
+        android:hint="검색"
+        android:padding="20dp"
+        android:paddingStart="40dp"
+        android:textColorHint="#000000"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <GridLayout
+        android:id="@+id/category_grid"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:columnCount="4"
+        android:rowCount="2"
+        android:layout_marginTop="30dp"
+        android:background="#ADFF2F"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 카페&디저트 -->
+            <ImageButton
+                android:id="@+id/btn_cafe_dessert"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_coffee"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="5dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+
+
+        <!-- 치킨 -->
+            <ImageButton
+                android:id="@+id/btn_chicken"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_chicken"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+        <!-- 패스트푸드 -->
+            <ImageButton
+                android:id="@+id/btn_fast_food"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_hamburger"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+        <!-- 여행&숙박 -->
+            <ImageButton
+                android:id="@+id/btn_travel"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_travel"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+        <!-- 편의점 -->
+            <ImageButton
+                android:id="@+id/btn_convenience"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_convenience"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+        <!-- 베이커리 -->
+            <ImageButton
+                android:id="@+id/btn_bread"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_bread"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+
+        <!-- 상품권 -->
+            <ImageButton
+                android:id="@+id/btn_voucher"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_voucher"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+
+
+
+        <!-- 아이스크림 -->
+            <ImageButton
+                android:id="@+id/btn_icecream"
+                android:layout_width="103dp"
+                android:layout_height="90dp"
+                android:src="@drawable/gift_icecream"
+                android:background="@drawable/gift_background"
+                android:scaleType="centerInside"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="카페와 디저트 버튼"/>
+    </GridLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
