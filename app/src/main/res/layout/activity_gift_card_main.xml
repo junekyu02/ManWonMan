@@ -29,7 +29,7 @@
 
     <GridLayout
         android:id="@+id/category_grid"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:columnCount="4"
         android:rowCount="2"
@@ -42,8 +42,8 @@
         <!-- 카페&디저트 -->
             <ImageButton
                 android:id="@+id/btn_cafe_dessert"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_coffee"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -55,8 +55,8 @@
         <!-- 치킨 -->
             <ImageButton
                 android:id="@+id/btn_chicken"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_chicken"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -66,8 +66,8 @@
         <!-- 패스트푸드 -->
             <ImageButton
                 android:id="@+id/btn_fast_food"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_hamburger"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -77,8 +77,8 @@
         <!-- 여행&숙박 -->
             <ImageButton
                 android:id="@+id/btn_travel"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_travel"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -88,8 +88,8 @@
         <!-- 편의점 -->
             <ImageButton
                 android:id="@+id/btn_convenience"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_convenience"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -99,8 +99,8 @@
         <!-- 베이커리 -->
             <ImageButton
                 android:id="@+id/btn_bread"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_bread"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -111,8 +111,8 @@
         <!-- 상품권 -->
             <ImageButton
                 android:id="@+id/btn_voucher"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
                 android:src="@drawable/gift_voucher"
                 android:background="@drawable/gift_background"
                 android:scaleType="centerInside"
@@ -122,14 +122,74 @@
 
 
         <!-- 아이스크림 -->
-            <ImageButton
-                android:id="@+id/btn_icecream"
-                android:layout_width="103dp"
-                android:layout_height="90dp"
-                android:src="@drawable/gift_icecream"
-                android:background="@drawable/gift_background"
-                android:scaleType="centerInside"
-                android:layout_marginBottom="4dp"
-                android:contentDescription="카페와 디저트 버튼"/>
+        <ImageButton
+            android:id="@+id/btn_icecream"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/gift_background"
+            android:contentDescription="카페와 디저트 버튼"
+            android:scaleType="centerInside"
+            android:src="@drawable/gift_icecream" />
     </GridLayout>
+
+    <TextView
+        android:id="@+id/text_item1"
+        android:layout_width="190dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="348dp"
+        android:layout_marginEnd="204dp"
+        android:text="최근에 등록된 상품"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- 최근에 등록된 상품 GridLayout -->
+    <GridLayout
+        android:id="@+id/new_grid_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:columnCount="3"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/text_item1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 첫 번째 ImageButton -->
+        <ImageButton
+            android:id="@+id/btn_image1"
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/sample_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/gift_background"
+            android:contentDescription="이미지 버튼 1" />
+
+        <!-- 두 번째 ImageButton -->
+        <ImageButton
+            android:id="@+id/btn_image2"
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/sample_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/gift_background"
+            android:contentDescription="이미지 버튼 2" />
+
+        <!-- 세 번째 ImageButton -->
+        <ImageButton
+            android:id="@+id/btn_image3"
+            android:layout_width="120dp"
+            android:layout_height="110dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/sample_image"
+            android:scaleType="centerCrop"
+            android:background="@drawable/gift_background"
+            android:contentDescription="이미지 버튼 3" />
+    </GridLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
