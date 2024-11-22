@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="215dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="식품"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="채소                     >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="과일                     >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="간식 및 디저트     >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="통조림                 >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="즉석 식품            >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="음료 및 생수        >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+
+</LinearLayout>

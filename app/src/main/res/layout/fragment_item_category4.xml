@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="215dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="가전/디지털"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="주방 및 생활 가전  >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="영상 및 음향 기기  >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="모바일 기기           >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="피트니스 기기       >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스마트 홈 기기      >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+
+</LinearLayout>
