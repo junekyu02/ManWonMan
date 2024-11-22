@@ -4,14 +4,14 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#277EFF</color>
 
-
-
-
     <color name="button_register_normal_color">#D2D8DD</color>
     <color name="button_register_pressed_color">#A6AEB3</color>
 
     <color name="g.red">#F12727</color>
     <color name="g.red2">#CF2626</color>
+
+    <color name="primary_color">#F12727</color>
+    <color name="primary_variant_color">#F12727</color>
 
     <!--    google color -->
     <color name="red">#F14336</color>

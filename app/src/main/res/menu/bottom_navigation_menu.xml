@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_icon"
+        android:enabled="true"
+        android:icon="@drawable/navigationbar_homeicon"
+        android:title="Home" />
+    <item
+        android:id="@+id/giftcard_icon"
+        android:enabled="true"
+        android:icon="@drawable/navigationbar_giftcardicon"
+        android:title="Gift Card" />
+    <item
+        android:id="@+id/feed_icon"
+        android:enabled="true"
+        android:icon="@drawable/navigationbar_feedicon"
+        android:title="Feed" />
+    <item
+        android:id="@+id/mypage_icon"
+        android:enabled="true"
+        android:icon="@drawable/navigationbar_mypageicon"
+        android:title="My Page" />
+</menu>
