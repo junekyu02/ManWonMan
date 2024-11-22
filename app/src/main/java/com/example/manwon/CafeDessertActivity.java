@@ -26,6 +26,10 @@ public class CafeDessertActivity extends AppCompatActivity {
         itemList = new ArrayList<>();
         itemList.add(new CafeDessertItem("커피", "커피 마실 사람~", R.drawable.sample_image));
         itemList.add(new CafeDessertItem("커피", "차 마실 사람~", R.drawable.sample_image));
+        itemList.add(new CafeDessertItem("커피", "커피 마실 사람~", R.drawable.sample_image));
+        itemList.add(new CafeDessertItem("커피", "차 마실 사람~", R.drawable.sample_image));
+        itemList.add(new CafeDessertItem("커피", "커피 마실 사람~", R.drawable.sample_image));
+        itemList.add(new CafeDessertItem("커피", "차 마실 사람~", R.drawable.sample_image));
         // 추가 데이터 삽입 가능
 
         // 어댑터 설정
