@@ -208,21 +208,45 @@
         android:visibility="invisible"
         android:text="Invalid URL format"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:src="@drawable/regist_camera_button"
-        android:background="@drawable/regist_rounded_edittext"/>
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/camera_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="81dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/regist_camera_button"
+                android:background="@drawable/regist_rounded_edittext"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="2dp"
-        android:textSize="8sp"
-        android:textStyle="bold"
-        android:textColor="#A9A9A9"
-        android:text="이미지 등록하기"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:layout_marginTop="2dp"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#A9A9A9"
+                android:text="이미지 등록하기"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_button_exchange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="130dp"
+            android:layout_marginTop="65dp"
+            android:text="Submit"
+            android:textSize="16sp"
+            android:background="@drawable/registration_submitbutton_border"
+            android:textColor="@android:color/white"
+            android:onClick="onSubmitButtonClick"/>
+    </LinearLayout>
 
 </LinearLayout>

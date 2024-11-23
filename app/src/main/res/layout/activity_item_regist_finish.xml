@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F0F0">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#F12727"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:src="@drawable/regist_finishcheck"
+        android:background="#F12727" />
+
+    <!-- 첫 번째 TextView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp"
+        android:text="      물품 등록이 성공적으로 완료되었습니다!      "
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:background="#F12727" />
+
+    <!-- 두 번째 TextView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingTop="60dp"
+        android:layout_height="120dp"
+        android:text="        5초 후 자동으로 홈화면으로 이동합니다        "
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <!-- 세 번째 TextView -->
+    <TextView
+        android:id="@+id/text_clickable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="             MY살까에서 물품 등록 정보 확인하러 가기"
+        android:textSize="13sp"
+        android:textColor="#8C8A8A" />
+
+    <!-- 밑줄 -->
+    <View
+        android:layout_width="225sp"
+        android:layout_height="2dp"
+        android:layout_marginLeft="42dp"
+        android:background="#8C8A8A" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

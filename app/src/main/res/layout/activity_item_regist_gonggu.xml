@@ -130,7 +130,7 @@
         android:layout_marginTop="15dp"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:text="5. 물품의 상세 이미지 및 URL 등록하고 기다리기!"/>
+        android:text="5. 물품의 상세 이미지 및 URL 입력"/>
     <EditText
         android:id="@+id/url"
         android:layout_width="290dp"
@@ -158,57 +158,79 @@
         android:visibility="invisible"
         android:text="Invalid URL format"/>
 
-    <ImageButton
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/regist_camera_button"
-        android:background="@drawable/regist_rounded_edittext"/>
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/camera_imagebutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="81dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/regist_camera_button"
+                android:background="@drawable/regist_rounded_edittext"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="78dp"
+                android:layout_marginTop="2dp"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#A9A9A9"
+                android:text="이미지 등록하기"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/submit_button_gonggu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="130dp"
+            android:text="Submit"
+            android:textSize="16sp"
+            android:background="@drawable/registration_submitbutton_border"
+            android:textColor="@android:color/white"
+            android:onClick="onSubmitButtonClick"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_marginTop="2dp"
-        android:textSize="8sp"
-        android:textStyle="bold"
-        android:textColor="#A9A9A9"
-        android:text="이미지 등록하기"/>
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="82dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="52.5dp"
+        android:layout_marginTop="50dp"
         android:textSize="21sp"
         android:textColor="#FF6347"
         android:textStyle="bold"
-        android:text="등록할 초특가 물건 찾아보기"/>
+        android:text="등록할 초특가 물건 URL 찾아보기"/>
 
     <View
-        android:layout_width="250dp"
+        android:layout_width="300dp"
         android:layout_height="3dp"
-        android:layout_marginStart="82dp"
+        android:layout_marginHorizontal="55dp"
         android:background="#FF6347"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="187dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="3dp"
         android:textColor="#FF0000"
         android:textSize="10sp"
         android:textStyle="bold"
-        android:text="하단 아이콘 클릭 시 해당 페이지로 이동"/>
+        android:text="하단 아이콘 클릭 시 초특가 상품 구매 페이지로 이동"/>
 
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
         <ImageButton
             android:layout_width="wrap_content"

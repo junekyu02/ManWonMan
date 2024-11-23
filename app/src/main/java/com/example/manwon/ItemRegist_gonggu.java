@@ -175,4 +175,11 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             }
         }
     }
+
+    // Submit 버튼 클릭 시 호출되는 메서드
+    public void onSubmitButtonClick(View view) {
+        // submit_finish 액티비티로 이동
+        Intent intent = new Intent(ItemRegist_gonggu.this, ItemRegist_Finish.class);
+        startActivity(intent);  // 액티비티 전환
+    }
 }

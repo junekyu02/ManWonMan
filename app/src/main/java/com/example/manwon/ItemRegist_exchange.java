@@ -59,7 +59,6 @@ public class ItemRegist_exchange extends AppCompatActivity {
             startActivityForResult(intent, 201);  // 요청 코드 101으로 결과를 받음
         });
 
-
         EditText purchase_date = findViewById(R.id.purchase_date);
         purchase_date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -210,5 +209,12 @@ public class ItemRegist_exchange extends AppCompatActivity {
                 itemtype2.setTextColor(selectedColor);
             }
         }
+    }
+
+    // Submit 버튼 클릭 시 호출되는 메서드
+    public void onSubmitButtonClick(View view) {
+        // submit_finish 액티비티로 이동
+        Intent intent = new Intent(ItemRegist_exchange.this, ItemRegist_Finish.class);
+        startActivity(intent);  // 액티비티 전환
     }
 }
