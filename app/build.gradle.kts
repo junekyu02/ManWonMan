@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services") // Firebase 플러그인 추가
 }
 
 android {
@@ -48,6 +49,9 @@ android {
     }
 }
 dependencies {
+    implementation ("com.google.firebase:firebase-auth")
+    implementation(platform("com.google.firebase:firebase-bom:33.6.0"))
+    implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.naver.maps:map-sdk:3.19.1")
     implementation ("net.sourceforge.jexcelapi:jxl:2.6.12")

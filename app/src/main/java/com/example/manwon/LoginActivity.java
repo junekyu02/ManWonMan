@@ -1,21 +1,22 @@
 package com.example.manwon;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.manwon.databinding.ActivityLoginBinding;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    
     private boolean isPasswordVisible = false;
     private ActivityLoginBinding binding;
+    private FirebaseAuth mAuth; // FirebaseAuth 객체 선언
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,28 +24,40 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // FirebaseAuth 초기화
+        mAuth = FirebaseAuth.getInstance();
+
         // 비밀번호 보기/숨기기 버튼 클릭 리스너
         binding.showPassword.setOnClickListener(v -> togglePasswordVisibility());
 
         // 로그인 버튼 클릭 리스너
         binding.loginButton.setOnClickListener(v -> {
-            String username = binding.username.getText().toString();
-            String password = binding.password.getText().toString();
+            String email = binding.username.getText().toString().trim(); // 이메일 입력 값
+            String password = binding.password.getText().toString().trim(); // 비밀번호 입력 값
 
-            if (username.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(LoginActivity.this, "빈 칸 없이 입력하세요.", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(LoginActivity.this, "로그인 시도 (테스트 메시지)", Toast.LENGTH_SHORT).show();
+                return;
             }
-            Intent intent = new Intent(LoginActivity.this, MapViewActivity.class );
-            startActivity(intent);
-        });
 
-//        // 비밀번호 찾기 버튼 클릭 리스너
-//        binding.forgotPasswordBtn.setOnClickListener(v -> {
-//            Intent intent = new Intent(LoginActivity.this, FindPasswordActivity.class);
-//            startActivity(intent);
-//        });
+            // Firebase 로그인 시도
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, task -> {
+                        if (task.isSuccessful()) {
+                            // 로그인 성공
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            Toast.makeText(LoginActivity.this, "로그인 성공: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+
+                            // 다음 액티비티로 이동 (MapViewActivity로 이동)
+                            Intent intent = new Intent(LoginActivity.this, MapViewActivity.class);
+                            startActivity(intent);
+                            finish(); // 로그인 화면 종료
+                        } else {
+                            // 로그인 실패
+                            Toast.makeText(LoginActivity.this, "로그인 실패: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        });
 
         // 회원가입 버튼 클릭 리스너
         binding.registerBtn.setOnClickListener(v -> {

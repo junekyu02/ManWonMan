@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "101209228325",
+    "project_id": "manwonman-6ce35",
+    "storage_bucket": "manwonman-6ce35.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101209228325:android:38edaf9fa3b4402578abcc",
+        "android_client_info": {
+          "package_name": "com.example.manwon"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7S-BJBglMsSTr16ZpQTyyQ1FBnA_K2Ow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

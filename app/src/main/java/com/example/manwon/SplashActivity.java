@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseApp;
+
 // 스플래시 화면 Activity
 
 public class SplashActivity extends AppCompatActivity {
@@ -22,6 +24,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Firebase 초기화
+        FirebaseApp.initializeApp(this);
+
         setContentView(R.layout.activity_splash);
 
         // 전체화면 설정

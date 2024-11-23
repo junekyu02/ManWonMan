@@ -31,34 +31,34 @@
             android:exported="false" />
         <activity
             android:name=".Ice_CreamActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".VoucherActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".BreadActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ConvenienceActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".TravelActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".FastFoodActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ChickenActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".CafeDessertActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".Gift_Card_MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ItemRegist_Gift"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ListViewAdapter"
             android:exported="false" />
@@ -96,7 +96,14 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false" />
+            android:exported="true" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />
