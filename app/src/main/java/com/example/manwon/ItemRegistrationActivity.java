@@ -24,7 +24,7 @@ public class ItemRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 클릭 시 ItemRegist_exchange 액티비티로 이동
-                Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_exchange.class);
+                Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_gonggu.class);
                 startActivity(intent);
             }
         });
@@ -34,7 +34,7 @@ public class ItemRegistrationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 클릭 시 해당 액티비티로 이동
-                Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_gonggu.class);
+                Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_exchange.class);
                 startActivity(intent);
             }
         });
