@@ -58,7 +58,14 @@ import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MapViewActivity extends AppCompatActivity implements OnMapReadyCallback, ListViewAdapter.OnItemClickListener {
+
+    private DatabaseReference databaseReference; // Firebase Database 참조 객체
+    private String userId; // Firebase 사용자 ID
 
     private static final int LOCATION_PERMISSION_REQUEST_CODE = 5000;
 
@@ -90,6 +97,10 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map_view);
+
+        // Firebase Database 초기화
+        databaseReference = FirebaseDatabase.getInstance().getReference("locations");
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         binding.previousBtn.setOnClickListener(view -> finish());
 
@@ -182,21 +193,20 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
 
         Button saveBtn = findViewById(R.id.locationSaveBtn);
 
-//        saveBtn.setOnClickListener(view -> {
-//            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("location").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-//            myRef.removeValue();
-//            if (!addressBtn1.getText().toString().equals("          +")) {
-//                myRef.push().setValue(addressBtn1.getText().toString());
-//            }
-//            if (!addressBtn2.getText().toString().equals("          +")) {
-//                myRef.push().setValue(addressBtn2.getText().toString());
-//            }
-//
-//            Intent intent = new Intent(this, MainActivity.class);
-//            intent.putExtra("fromActivity", "MapViewActivity");
-//            startActivity(intent);
-//            finish();
-//        });
+        saveBtn.setOnClickListener(view -> {
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("location").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+            myRef.removeValue();
+            if (!addressBtn1.getText().toString().equals("          +")) {
+                myRef.push().setValue(addressBtn1.getText().toString());
+            }
+            if (!addressBtn2.getText().toString().equals("          +")) {
+                myRef.push().setValue(addressBtn2.getText().toString());
+            }
+
+            Intent intent = new Intent(MapViewActivity.this, BottomNavigation_Main.class);
+            startActivity(intent);
+            finish();
+        });
 
         if (city1 != null) {
             addressBtn1.setText(city1);
