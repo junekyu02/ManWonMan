@@ -64,19 +64,19 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:text="2. 교환할 물품 유형"/>
-    <EditText
+
+    <TextView
         android:id="@+id/itemtype1"
         android:layout_width="250dp"
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
+        android:paddingVertical="5dp"
         android:paddingStart="8dp"
-        android:textColorHint="#FFFFFF"
-        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:text="클릭 시 카테고리 유형으로 이동합니다"
         android:textSize="8sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:inputType="text"
-        android:cursorVisible="true"
         android:background="@drawable/regist_rounded_edittext"/>
 
     <TextView
@@ -158,19 +158,19 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:text="6. 교환을 희망하는 물품 유형"/>
-    <EditText
+
+    <TextView
         android:id="@+id/itemtype2"
         android:layout_width="250dp"
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
+        android:paddingVertical="5dp"
         android:paddingStart="8dp"
-        android:textColorHint="#FFFFFF"
-        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:text="클릭 시 카테고리 유형으로 이동합니다"
         android:textSize="8sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:inputType="text"
-        android:cursorVisible="true"
         android:background="@drawable/regist_rounded_edittext"/>
 
     <TextView

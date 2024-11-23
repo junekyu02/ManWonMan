@@ -1,5 +1,7 @@
 package com.example.manwon;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +11,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.graphics.Color;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -42,21 +43,22 @@ public class ItemRegist_exchange extends AppCompatActivity {
             }
         });
 
-        EditText itemtype1 = findViewById(R.id.itemtype1);
-        itemtype1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    itemtype1.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "클릭 시 카테고리 유형으로 이동합니다"로 돌아간다.
-                    if (itemtype1.getText().toString().isEmpty()) {
-                        itemtype1.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                    }
-                }
-            }
+        // itemtype1 클릭 시 Regist_Item_Category로 이동
+        TextView itemtype1 = findViewById(R.id.itemtype1);
+        itemtype1.setOnClickListener(v -> {
+            Intent intent = new Intent(ItemRegist_exchange.this, Regist_Item_Category.class);
+            intent.putExtra("itemtype", "itemtype1");  // 어떤 TextView를 클릭했는지 구분
+            startActivityForResult(intent, 200);  // 요청 코드 100으로 결과를 받음
         });
+
+        // itemtype2 클릭 시 Regist_Item_Category로 이동
+        TextView itemtype2 = findViewById(R.id.itemtype2);
+        itemtype2.setOnClickListener(v -> {
+            Intent intent = new Intent(ItemRegist_exchange.this, Regist_Item_Category.class);
+            intent.putExtra("itemtype", "itemtype2");  // 어떤 TextView를 클릭했는지 구분
+            startActivityForResult(intent, 201);  // 요청 코드 101으로 결과를 받음
+        });
+
 
         EditText purchase_date = findViewById(R.id.purchase_date);
         purchase_date.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -101,22 +103,6 @@ public class ItemRegist_exchange extends AppCompatActivity {
                     // 포커스를 잃으면 텍스트가 비어있으면 "이미지에 대한 URL 작성하기"로 돌아간다.
                     if (etc.getText().toString().isEmpty()) {
                         etc.setHint("이미지에 대한 URL 작성하기");
-                    }
-                }
-            }
-        });
-
-        EditText itemtype2 = findViewById(R.id.itemtype2);
-        itemtype2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    itemtype2.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "이미지에 대한 URL 작성하기"로 돌아간다.
-                    if (itemtype2.getText().toString().isEmpty()) {
-                        itemtype2.setHint("이미지에 대한 URL 작성하기");
                     }
                 }
             }
@@ -201,5 +187,28 @@ public class ItemRegist_exchange extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         };
+    }
+
+    // onActivityResult() 메서드 오버라이드 (2번 액티비티로부터 결과 받기)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            String resultText = data.getStringExtra("selectedText");  // 2번 액티비티에서 전달된 텍스트
+            int selectedColor = data.getIntExtra("selectedColor", Color.BLACK);
+
+            if (requestCode == 200) {
+                // itemtype1 TextView 텍스트 변경
+                TextView itemtype1 = findViewById(R.id.itemtype1);
+                itemtype1.setText(resultText);
+                itemtype1.setTextColor(selectedColor);
+            } else if (requestCode == 201) {
+                // itemtype2 TextView 텍스트 변경
+                TextView itemtype2 = findViewById(R.id.itemtype2);
+                itemtype2.setText(resultText);
+                itemtype2.setTextColor(selectedColor);
+            }
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.manwon;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,37 +43,22 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             }
         });
 
-        EditText itemtype1 = findViewById(R.id.itemtype1);
-        itemtype1.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    itemtype1.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "클릭 시 카테고리 유형으로 이동합니다"로 돌아간다.
-                    if (itemtype1.getText().toString().isEmpty()) {
-                        itemtype1.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                    }
-                }
-            }
+        // itemtype1 클릭 시 Regist_Item_Category로 이동
+        TextView itemtype1 = findViewById(R.id.itemtype1);
+        itemtype1.setOnClickListener(v -> {
+            Intent intent = new Intent(ItemRegist_gonggu.this, Regist_Item_Category.class);
+            intent.putExtra("itemtype", "itemtype1");  // 어떤 TextView를 클릭했는지 구분
+            startActivityForResult(intent, 100);  // 요청 코드 100으로 결과를 받음
         });
 
-        EditText itemtype2 = findViewById(R.id.itemtype2);
-        itemtype2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    itemtype2.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "클릭 시 카테고리 유형으로 이동합니다"로 돌아간다.
-                    if (itemtype2.getText().toString().isEmpty()) {
-                        itemtype2.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                    }
-                }
-            }
+        // itemtype2 클릭 시 Regist_Item_Category로 이동
+        TextView itemtype2 = findViewById(R.id.itemtype2);
+        itemtype2.setOnClickListener(v -> {
+            Intent intent = new Intent(ItemRegist_gonggu.this, Regist_Item_Category.class);
+            intent.putExtra("itemtype", "itemtype2");  // 어떤 TextView를 클릭했는지 구분
+            startActivityForResult(intent, 101);  // 요청 코드 101으로 결과를 받음
         });
+
 
         EditText total_number = findViewById(R.id.total_number);
         total_number.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -165,5 +151,28 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         };
+    }
+
+    // onActivityResult() 메서드 오버라이드 (2번 액티비티로부터 결과 받기)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            String resultText = data.getStringExtra("selectedText");  // 2번 액티비티에서 전달된 텍스트
+            int selectedColor = data.getIntExtra("selectedColor", Color.BLACK);
+
+            if (requestCode == 100) {
+                // itemtype1 TextView 텍스트 변경
+                TextView itemtype1 = findViewById(R.id.itemtype1);
+                itemtype1.setText(resultText);
+                itemtype1.setTextColor(selectedColor);
+            } else if (requestCode == 101) {
+                // itemtype2 TextView 텍스트 변경
+                TextView itemtype2 = findViewById(R.id.itemtype2);
+                itemtype2.setText(resultText);
+                itemtype2.setTextColor(selectedColor);
+            }
+        }
     }
 }

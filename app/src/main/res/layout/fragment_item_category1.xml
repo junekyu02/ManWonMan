@@ -5,7 +5,9 @@
     android:layout_marginLeft="20dp"
     android:orientation="vertical">
 
+    <!-- 카테고리 제목 -->
     <TextView
+        android:id="@+id/category_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="식품"
@@ -13,7 +15,9 @@
         android:textColor="#000000"
         android:textSize="30sp"/>
 
+    <!-- 각 카테고리 항목들 (클릭 가능하도록 설정) -->
     <TextView
+        android:id="@+id/category_item_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="채소                     >"
@@ -23,7 +27,9 @@
         android:layout_marginTop="55dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
+
     <TextView
+        android:id="@+id/category_item_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="과일                     >"
@@ -33,7 +39,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
+
     <TextView
+        android:id="@+id/category_item_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="간식 및 디저트     >"
@@ -43,7 +51,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
+
     <TextView
+        android:id="@+id/category_item_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="통조림                 >"
@@ -53,7 +63,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
+
     <TextView
+        android:id="@+id/category_item_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="즉석 식품            >"
@@ -63,7 +75,9 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
+
     <TextView
+        android:id="@+id/category_item_6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="음료 및 생수        >"
@@ -73,5 +87,4 @@
         android:layout_marginTop="25dp"
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
-
 </LinearLayout>

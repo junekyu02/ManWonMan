@@ -14,6 +14,7 @@
         android:textSize="30sp"/>
 
     <TextView
+        android:id="@+id/category_item_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주방 및 생활 가전  >"
@@ -24,6 +25,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="영상 및 음향 기기  >"
@@ -34,6 +36,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="모바일 기기           >"
@@ -44,6 +47,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="피트니스 기기       >"
@@ -54,6 +58,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="스마트 홈 기기      >"

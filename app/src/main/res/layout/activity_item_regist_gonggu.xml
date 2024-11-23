@@ -64,19 +64,18 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:text="2. 공동구매 할 물품 유형"/>
-    <EditText
+    <TextView
         android:id="@+id/itemtype1"
         android:layout_width="250dp"
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
+        android:paddingVertical="5dp"
         android:paddingStart="8dp"
-        android:textColorHint="#FFFFFF"
-        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:text="클릭 시 카테고리 유형으로 이동합니다"
         android:textSize="8sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:inputType="text"
-        android:cursorVisible="true"
         android:background="@drawable/regist_rounded_edittext"/>
 
     <TextView
@@ -87,19 +86,18 @@
         android:textSize="14sp"
         android:textStyle="bold"
         android:text="3. 교환을 희망하는 물품 유형"/>
-    <EditText
+    <TextView
         android:id="@+id/itemtype2"
         android:layout_width="250dp"
         android:layout_height="25dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
+        android:paddingVertical="5dp"
         android:paddingStart="8dp"
-        android:textColorHint="#FFFFFF"
-        android:hint="클릭 시 카테고리 유형으로 이동합니다"
+        android:text="클릭 시 카테고리 유형으로 이동합니다"
         android:textSize="8sp"
+        android:textColor="@color/white"
         android:textStyle="bold"
-        android:inputType="text"
-        android:cursorVisible="true"
         android:background="@drawable/regist_rounded_edittext"/>
 
     <TextView
@@ -203,36 +201,40 @@
         android:textColor="#FF0000"
         android:textSize="10sp"
         android:textStyle="bold"
-        android:text="아이콘 클릭 시 해당 페이지로 이동"/>
+        android:text="하단 아이콘 클릭 시 해당 페이지로 이동"/>
 
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:orientation="horizontal">
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="28dp"
-            android:src="@drawable/itemregist_gonggu_coupang"/>
+            android:layout_marginStart="35dp"
+            android:src="@drawable/itemregist_gonggu_coupang"
+            android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:src="@drawable/itemregist_gonggu_gmarket"/>
+            android:layout_marginStart="35dp"
+            android:src="@drawable/itemregist_gonggu_gmarket"
+            android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:src="@drawable/itemregist_gonggu_ssg"/>
+            android:layout_marginStart="35dp"
+            android:src="@drawable/itemregist_gonggu_ssg"
+            android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="13dp"
-            android:layout_marginEnd="28dp"
-            android:src="@drawable/itemregist_gonggu_auction"/>
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:src="@drawable/itemregist_gonggu_auction"
+            android:background="@drawable/regist_item_category_rounded"/>
     </LinearLayout>
 
 </LinearLayout>

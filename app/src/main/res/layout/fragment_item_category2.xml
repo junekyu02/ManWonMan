@@ -14,6 +14,7 @@
         android:textSize="30sp"/>
 
     <TextView
+        android:id="@+id/category_item_1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="주방용품             >"
@@ -24,6 +25,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="청소용품             >"
@@ -34,6 +36,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="욕실용품             >"
@@ -44,6 +47,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="침구류                 >"
@@ -54,6 +58,7 @@
         android:layout_marginLeft="22dp"
         android:gravity="end"/>
     <TextView
+        android:id="@+id/category_item_5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="생활잡화             >"

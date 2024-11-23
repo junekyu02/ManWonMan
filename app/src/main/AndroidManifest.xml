@@ -22,13 +22,7 @@
             android:exported="false" />
         <activity
             android:name=".BottomNavigation_Main"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".Ice_CreamActivity"
             android:exported="false" />
@@ -69,13 +63,7 @@
 
         <activity
             android:name=".MapViewActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".ItemRegist_gonggu"
             android:exported="false" />
