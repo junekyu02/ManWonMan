@@ -25,7 +25,12 @@
             android:exported="false" />
         <activity
             android:name=".BottomNavigation_Main"
-            android:exported="false" />
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
         <activity
             android:name=".Ice_CreamActivity"
             android:exported="false" />
@@ -49,9 +54,6 @@
             android:exported="false" />
         <activity
             android:name=".CafeDessertActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Gift_Card_MainActivity"
             android:exported="false" />
         <activity
             android:name=".ItemRegist_Gift"
@@ -87,12 +89,8 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="false" />

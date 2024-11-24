@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.manwon.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
@@ -28,7 +27,8 @@ public class BottomNavigation_Main extends AppCompatActivity {
                     return true;
                 }
                 if(itemId == R.id.giftcard_icon){
-
+                    transferTo(GiftCardMain_Fragment.newInstance("param1", "param2"));
+                    return true;
                 }
                 if(itemId == R.id.feed_icon){
 
