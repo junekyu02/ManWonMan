@@ -277,7 +277,6 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             }
         }
         return true;
-        
     }
 
     @Override
