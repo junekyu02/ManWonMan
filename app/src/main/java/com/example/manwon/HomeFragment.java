@@ -54,7 +54,9 @@ public class HomeFragment extends Fragment {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 물물교환 Activity로 이동
+                // ItemCollectiveBuyActivity로 이동
+                Intent intent = new Intent(getActivity(), ItemCollectiveBuyActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -74,7 +76,9 @@ public class HomeFragment extends Fragment {
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 둘러보기Activity로 이동
+                // ItemChangeActivity로 이동
+                Intent intent = new Intent(getActivity(), ItemExchangeActivity.class);
+                startActivity(intent);
             }
         });
 

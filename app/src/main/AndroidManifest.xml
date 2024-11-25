@@ -18,6 +18,12 @@
         android:theme="@style/Theme.ManWon"
         tools:targetApi="31">
         <activity
+            android:name=".ItemExchangeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ItemCollectiveBuyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ItemRegist_Finish"
             android:exported="false" />
         <activity
@@ -26,11 +32,12 @@
         <activity
             android:name=".BottomNavigation_Main"
             android:exported="true">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".Ice_CreamActivity"
             android:exported="false" />
@@ -89,8 +96,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

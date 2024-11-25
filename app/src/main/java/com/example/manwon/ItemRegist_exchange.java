@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ItemRegist_exchange extends AppCompatActivity {
@@ -213,8 +214,26 @@ public class ItemRegist_exchange extends AppCompatActivity {
 
     // Submit 버튼 클릭 시 호출되는 메서드
     public void onSubmitButtonClick(View view) {
-        // submit_finish 액티비티로 이동
-        Intent intent = new Intent(ItemRegist_exchange.this, ItemRegist_Finish.class);
-        startActivity(intent);  // 액티비티 전환
+        // AlertDialog 생성
+        AlertDialog.Builder builder = new AlertDialog.Builder(ItemRegist_exchange.this);
+
+        builder.setIcon(R.drawable.registration_warning); // 다이얼로그 아이콘 설정
+        builder.setTitle("정말 등록하시겠습니까?");
+
+        builder.setMessage("빠진 부분이 있는지 반드시 확인해주세요.")  // 다이얼로그에 표시할 메시지
+                .setCancelable(false)  // 다이얼로그 외부 터치 시 닫히지 않도록 설정
+                .setPositiveButton("제출하기", (dialog, id) -> {
+                    // 제출하기 버튼 클릭 시 다음 액티비티로 이동
+                    Intent intent = new Intent(ItemRegist_exchange.this, ItemRegist_Finish.class);
+                    startActivity(intent);  // 액티비티 전환
+                })
+                .setNegativeButton("검토하기", (dialog, id) -> {
+                    // 취소 버튼 클릭 시 다이얼로그 닫기
+                    dialog.dismiss();
+                });
+
+        // 다이얼로그 띄우기
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 }
