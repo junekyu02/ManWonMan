@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="215dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:orientation="vertical">
+
+    <!-- 카테고리 제목 -->
+    <TextView
+        android:id="@+id/category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="여행, 숙박"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="30sp"/>
+
+    <!-- 각 카테고리 항목들 (클릭 가능하도록 설정) -->
+    <TextView
+        android:id="@+id/category_item_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="여기 어때             >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="55dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+
+    <TextView
+        android:id="@+id/category_item_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="야놀자                 >"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="21sp"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="22dp"
+        android:gravity="end"/>
+
+
+</LinearLayout>

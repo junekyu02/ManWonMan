@@ -11,12 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class CafeDessertAdapter extends RecyclerView.Adapter<CafeDessertAdapter.CafeDessertViewHolder> {
+public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapter.CafeDessertViewHolder> {
 
-    private List<CafeDessertItem> itemList;
+    private List<Gift_CafeDessertItem> itemList;
 
     // 생성자
-    public CafeDessertAdapter(List<CafeDessertItem> itemList) {
+    public Gift_RecycleAdapter(List<Gift_CafeDessertItem> itemList) {
         this.itemList = itemList;
     }
 
@@ -27,12 +27,13 @@ public class CafeDessertAdapter extends RecyclerView.Adapter<CafeDessertAdapter.
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cafe_dessert, parent, false);
         return new CafeDessertViewHolder(itemView);
+
     }
 
     // ViewHolder에 데이터 바인딩
     @Override
     public void onBindViewHolder(CafeDessertViewHolder holder, int position) {
-        CafeDessertItem item = itemList.get(position);
+        Gift_CafeDessertItem item = itemList.get(position);
 
         // 데이터 연결
         holder.tagTextView.setText(item.getTag());

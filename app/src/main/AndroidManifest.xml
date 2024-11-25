@@ -39,28 +39,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Ice_CreamActivity"
+            android:name=".Gift_Ice_CreamActivity"
             android:exported="false" />
         <activity
-            android:name=".VoucherActivity"
+            android:name=".Gift_VoucherActivity"
             android:exported="false" />
         <activity
-            android:name=".BreadActivity"
+            android:name=".Gift_BreadActivity"
             android:exported="false" />
         <activity
-            android:name=".ConvenienceActivity"
+            android:name=".Gift_ConvenienceActivity"
             android:exported="false" />
         <activity
-            android:name=".TravelActivity"
+            android:name=".Gift_TravelActivity"
             android:exported="false" />
         <activity
-            android:name=".FastFoodActivity"
+            android:name=".Gift_FastFoodActivity"
             android:exported="false" />
         <activity
-            android:name=".ChickenActivity"
+            android:name=".Gift_ChickenActivity"
             android:exported="false" />
         <activity
-            android:name=".CafeDessertActivity"
+            android:name=".Gift_CafeDessertActivity"
             android:exported="false" />
         <activity
             android:name=".ItemRegist_Gift"

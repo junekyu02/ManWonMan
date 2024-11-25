@@ -5,6 +5,6 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Ice_CreamActivity">
+    tools:context=".Gift_Ice_CreamActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

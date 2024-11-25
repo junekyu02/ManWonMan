@@ -47,7 +47,7 @@ public class GiftCardMain_Fragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         // 기존의 Gift_Card_MainActivity 레이아웃을 inflate
-        View view = inflater.inflate(R.layout.activity_gift_card_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_gift_card_main_, container, false);
 
         // configureCategoryButtons 메서드 호출
         configureCategoryButtons(view);
@@ -58,49 +58,49 @@ public class GiftCardMain_Fragment extends Fragment {
     private void configureCategoryButtons(View view) {
         ImageButton btnCafeDessert = view.findViewById(R.id.btn_cafe_dessert);
         btnCafeDessert.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), CafeDessertActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_CafeDessertActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnChicken = view.findViewById(R.id.btn_chicken);
         btnChicken.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ChickenActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_ChickenActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnFastFood = view.findViewById(R.id.btn_fast_food);
         btnFastFood.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), FastFoodActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_FastFoodActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnTravel = view.findViewById(R.id.btn_travel);
         btnTravel.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), TravelActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_TravelActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnConvenience = view.findViewById(R.id.btn_convenience);
         btnConvenience.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), ConvenienceActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_ConvenienceActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnBread = view.findViewById(R.id.btn_bread);
         btnBread.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), BreadActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_BreadActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnVoucher = view.findViewById(R.id.btn_voucher);
         btnVoucher.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), VoucherActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_VoucherActivity.class);
             startActivity(intent);
         });
 
         ImageButton btnIceCream = view.findViewById(R.id.btn_icecream);
         btnIceCream.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), Ice_CreamActivity.class);
+            Intent intent = new Intent(getActivity(), Gift_Ice_CreamActivity.class);
             startActivity(intent);
         });
     }
