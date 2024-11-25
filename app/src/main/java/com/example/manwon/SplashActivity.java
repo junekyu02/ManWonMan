@@ -15,8 +15,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.FirebaseApp;
-
 // 스플래시 화면 Activity
 
 public class SplashActivity extends AppCompatActivity {
@@ -24,9 +22,6 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Firebase 초기화
-        FirebaseApp.initializeApp(this);
-
         setContentView(R.layout.activity_splash);
 
         // 전체화면 설정
@@ -59,16 +54,17 @@ public class SplashActivity extends AppCompatActivity {
 
         // 첫번째 글자만 초록색 및 굵게 설정
         spannableString1.setSpan(new ForegroundColorSpan(0xFF4CAF50), 0, 1, 0);
-        spannableString1.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 1, 0);
+        spannableString1.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,1,0);
         spannableString2.setSpan(new ForegroundColorSpan(0xFF4CAF50), 0, 1, 0);
-        spannableString2.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 1, 0);
+        spannableString2.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,1,0);
         spannableString3.setSpan(new ForegroundColorSpan(0xFF4CAF50), 0, 1, 0);
-        spannableString3.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, 1, 0);
+        spannableString3.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),0,1,0);
 
         // 텍스트 뷰에 설정
         textView1.setText(spannableString1);
         textView2.setText(spannableString2);
         textView3.setText(spannableString3);
+
 
 
         // 애니메이션 파일 로드
@@ -97,7 +93,7 @@ public class SplashActivity extends AppCompatActivity {
                 textView2.setVisibility(View.VISIBLE);
                 textView2.startAnimation(fadeIn2);
             }
-        }, 1000); // 1초 후에 두 번째 텍스트 애니메이션 시작
+        }, 1125); // 1.125초 후에 두 번째 텍스트 애니메이션 시작
 
         handler.postDelayed(new Runnable() {
             @Override
@@ -105,17 +101,15 @@ public class SplashActivity extends AppCompatActivity {
                 textView3.setVisibility(View.VISIBLE);
                 textView3.startAnimation(fadeIn3);
             }
-        }, 2000); // 2초 후에 세 번째 텍스트 애니메이션 시작
+        }, 2250); // 2.25초 후에 세 번째 텍스트 애니메이션 시작
 
-        // 3초 후 LoginActivity로 이동
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // LoginActivity로 이동
-                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish(); // SplashActivity 종료 (뒤로 가기 버튼 눌러도 돌아가지 않도록)
-            }
-        }, 3000); // 3초 후에 실행
+        handler.postDelayed(new splashHandler(), 3500);    // 3.5초 후에 메인 액티비티로 이동
+    }
+
+    private class splashHandler implements Runnable {
+        public void run(){
+            startActivity(new Intent(getApplication(), LoginActivity.class));
+            SplashActivity.this.finish();
+        }
     }
 }
