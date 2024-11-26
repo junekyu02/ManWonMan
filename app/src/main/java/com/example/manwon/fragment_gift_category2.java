@@ -21,13 +21,13 @@ public class fragment_gift_category2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Fragment의 레이아웃을 inflate
-        View rootView = inflater.inflate(R.layout.fragment_item_category1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_gift_catecory2, container, false);
 
 
         // category_item_1
         TextView categoryitem1 = rootView.findViewById(R.id.category_item_1);
         categoryitem1.setOnClickListener(v -> {
-            String selectedText = "스타벅스";
+            String selectedText = "BBQ";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달
@@ -42,7 +42,7 @@ public class fragment_gift_category2 extends Fragment {
         // category_item_2
         TextView categoryitem2 = rootView.findViewById(R.id.category_item_2);
         categoryitem2.setOnClickListener(v -> {
-            String selectedText = "이디야";
+            String selectedText = "BHC";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달
@@ -56,7 +56,7 @@ public class fragment_gift_category2 extends Fragment {
         // category_item_3
         TextView categoryitem3 = rootView.findViewById(R.id.category_item_3);
         categoryitem3.setOnClickListener(v -> {
-            String selectedText = "메가커피";
+            String selectedText = "굽네치킨";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달
@@ -70,7 +70,7 @@ public class fragment_gift_category2 extends Fragment {
         // category_item_4
         TextView categoryitem4 = rootView.findViewById(R.id.category_item_4);
         categoryitem4.setOnClickListener(v -> {
-            String selectedText = "빽다방";
+            String selectedText = "교촌치킨";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달
@@ -84,7 +84,7 @@ public class fragment_gift_category2 extends Fragment {
         // category_item_5
         TextView categoryitem5 = rootView.findViewById(R.id.category_item_5);
         categoryitem5.setOnClickListener(v -> {
-            String selectedText = "할리스";
+            String selectedText = "푸라닭";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달
@@ -98,7 +98,7 @@ public class fragment_gift_category2 extends Fragment {
         // category_item_5
         TextView categoryitem6 = rootView.findViewById(R.id.category_item_6);
         categoryitem6.setOnClickListener(v -> {
-            String selectedText = "투썸플레이스";
+            String selectedText = "60계 치킨";
             int selectedColor = Color.BLACK;
 
             // 결과 데이터를 1번 액티비티로 전달

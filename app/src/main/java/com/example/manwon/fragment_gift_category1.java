@@ -21,7 +21,7 @@ public class fragment_gift_category1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Fragment의 레이아웃을 inflate
-        View rootView = inflater.inflate(R.layout.fragment_item_category1, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_gift_category1, container, false);
 
 
         // category_item_1
