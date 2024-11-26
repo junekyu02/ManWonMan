@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-public class fragment_gift_catecory6 extends Fragment{
-    public fragment_gift_catecory6() {
+public class fragment_gift_category2 extends Fragment {
+    public fragment_gift_category2() {
         // Required empty public constructor
     }
 

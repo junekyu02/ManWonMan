@@ -68,12 +68,12 @@
         android:text="2. 교환할 유형"
         android:textSize="14sp"
         android:textStyle="bold" />
-    <EditText
+    <ImageButton
         android:id="@+id/gift_itemtype1"
         android:layout_width="250dp"
-        android:layout_height="20dp"
+        android:layout_height="25dp"
         android:hint="클릭 시 카테고리 유형으로 이동합니다"
-        android:background="@drawable/regist_rounded_edittext"
+        android:background="@drawable/gift_categorychangebutton"
         android:paddingStart="8dp"
         android:textColorHint="#FFFFFF"
         android:textSize="14sp"
@@ -159,4 +159,15 @@
         android:contentDescription="이미지 업로드 버튼"
         android:background="?attr/selectableItemBackgroundBorderless" />
 
+    <Button
+        android:id="@+id/submit_button_gift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="140dp"
+        android:text="Submit"
+        android:textSize="16sp"
+        android:background="@drawable/registration_submitbutton_border"
+        android:textColor="@android:color/white"
+        android:onClick="onSubmitButtonClick"/>
 </LinearLayout>

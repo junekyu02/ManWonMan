@@ -1,5 +1,6 @@
 package com.example.manwon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ItemRegist_Gift extends AppCompatActivity {
 
     // 뷰 선언
-    private ImageButton backButton, uploadImageButton;
+    private ImageButton backButton, uploadImageButton, changeButton; // changeButton 추가
     private EditText titleEditText, itemTypeEditText, expirationDateEditText, detailsEditText, preferredCouponEditText;
     private TextView saveTempText;
 
@@ -25,7 +26,7 @@ public class ItemRegist_Gift extends AppCompatActivity {
         backButton = findViewById(R.id.back_button);
         uploadImageButton = findViewById(R.id.gift_upload_image);
         titleEditText = findViewById(R.id.gift_title);
-        itemTypeEditText = findViewById(R.id.gift_itemtype1);
+        changeButton = findViewById(R.id.gift_itemtype1); // 교환할 유형 버튼
         expirationDateEditText = findViewById(R.id.gift_expiration_date);
         detailsEditText = findViewById(R.id.gift_details);
         preferredCouponEditText = findViewById(R.id.gift_preferred_coupon);
@@ -52,6 +53,15 @@ public class ItemRegist_Gift extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 uploadImage();
+            }
+        });
+
+        // 교환할 유형 버튼 클릭 이벤트
+        changeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ItemRegist_Gift.this, Gift_Item_Regist_Catecory.class);
+                startActivity(intent); // Gift_Item_Regist_Catecory 액티비티로 이동
             }
         });
     }

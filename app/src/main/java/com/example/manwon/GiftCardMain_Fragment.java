@@ -52,6 +52,13 @@ public class GiftCardMain_Fragment extends Fragment {
         // configureCategoryButtons 메서드 호출
         configureCategoryButtons(view);
 
+        ImageButton giftRegistButton = view.findViewById(R.id.gift_registbutton);
+        giftRegistButton.setOnClickListener(v -> {
+            // ItemRegist_Gift로 이동하는 Intent 생성
+            Intent intent = new Intent(getActivity(), ItemRegist_Gift.class);
+            startActivity(intent);
+        });
+
         return view;
     }
 

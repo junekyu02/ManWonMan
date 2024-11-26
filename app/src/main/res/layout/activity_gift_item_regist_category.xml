@@ -1,0 +1,157 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/regist_back_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/regist_back_button" />
+
+    <LinearLayout
+        android:id="@+id/regist_search"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:padding="3dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="25dp"
+        android:layout_below="@id/regist_back_button">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="  원하는 유형의 항목을 선택해주세요  "
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:background="@drawable/regist_item_category_rounded" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/category_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="카테고리 유형"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@id/regist_search" />
+
+    <LinearLayout
+        android:id="@+id/horizontal_frame"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/category_title"
+        android:layout_marginTop="8dp">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="#757575" />
+    </LinearLayout>
+
+    <!-- 버튼 영역 -->
+    <GridLayout
+        android:id="@+id/category_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/horizontal_frame"
+        android:layout_marginTop="20dp"
+        android:columnCount="2"
+        android:rowCount="4"
+        android:padding="16dp">
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button1_off"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_coffee"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button2_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_chicken"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button3_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_hamburger"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button4_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_travel"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button5_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_convenience"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button6_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_bread"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button7_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_voucher"
+            android:background="@drawable/item_category_imagerounded" />
+
+        <ImageButton
+            android:id="@+id/gift_category_item_button8_off"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_rowWeight="1"
+            android:layout_margin="8dp"
+            android:src="@drawable/gift_icecream"
+            android:background="@drawable/item_category_imagerounded" />
+    </GridLayout>
+
+    <FrameLayout
+        android:id="@+id/category_details_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/category_buttons_layout"
+        android:layout_marginTop="16dp" />
+
+</RelativeLayout>
