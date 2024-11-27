@@ -233,24 +233,28 @@
         android:layout_marginTop="20dp"
         android:orientation="horizontal">
         <ImageButton
+            android:id="@+id/coupang_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:src="@drawable/itemregist_gonggu_coupang"
             android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
+            android:id="@+id/gmarket_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:src="@drawable/itemregist_gonggu_gmarket"
             android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
+            android:id="@+id/ssg_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:src="@drawable/itemregist_gonggu_ssg"
             android:background="@drawable/regist_item_category_rounded"/>
         <ImageButton
+            android:id="@+id/auction_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"

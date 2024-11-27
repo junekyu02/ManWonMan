@@ -2,6 +2,8 @@ package com.example.manwon;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.SoundPool;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,6 +18,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ItemRegist_gonggu extends AppCompatActivity {
+
+    private SoundPool soundPool;
+    private int clickSoundId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,58 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             Intent intent = new Intent(ItemRegist_gonggu.this, Regist_Item_Category.class);
             intent.putExtra("itemtype", "itemtype2");  // 어떤 TextView를 클릭했는지 구분
             startActivityForResult(intent, 101);  // 요청 코드 101으로 결과를 받음
+        });
+
+        // soundPool 초기화
+        soundPool = new SoundPool.Builder().setMaxStreams(1).build();
+        // 클릭 소리 파일 로드
+        clickSoundId = soundPool.load(this, R.raw.button_click, 1);
+
+
+        // 각 버튼 클릭 시 소리가 클릭소리가 나게끔 하며, 초특가 상품목록을 나타내는 웹페이지로 이동
+        ImageButton coupangWebsite = findViewById(R.id.coupang_icon);
+        ImageButton gmarketWebsite = findViewById(R.id.gmarket_icon);
+        ImageButton ssgWebsite = findViewById(R.id.ssg_icon);
+        ImageButton auctionWebsite = findViewById(R.id.auction_icon);
+
+        coupangWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+                String url = "https://www.coupang.com/np/search?q=%EC%98%A4%EB%8A%98%EC%9D%98%ED%8A%B9%EA%B0%80%ED%95%A0%EC%9D%B8&channel=relate";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        gmarketWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+                String url = "https://www.gmarket.co.kr/n/search?keyword=%ED%8A%B9%EA%B0%80";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        ssgWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+                String url = "https://www.ssg.com/page/pc/SpecialPrice.ssg";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+        auctionWebsite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+                String url = "https://www.auction.co.kr/n/search?keyword=%EC%B4%88%ED%8A%B9%EA%B0%80%EC%84%B8%EC%9D%BC";
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
         });
 
 
