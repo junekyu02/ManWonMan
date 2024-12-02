@@ -1,0 +1,149 @@
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="fragments.HomeFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--로고-->
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/favorite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <!-- 상단 타이틀 -->
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="Feed"
+                    android:textColor="#2E2E2E"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/helpImageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/help_2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- 실시간 키워드 섹션 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <Spinner
+                    android:id="@+id/filterSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/feed_filter_options" />
+
+
+            </LinearLayout>
+            <!-- 구분선 -->
+            <!-- 구분선 -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:layout_marginVertical="8dp"/>
+            <!-- 키워드 리스트 -->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="650dp" />
+
+
+        </LinearLayout>
+
+<!--        &lt;!&ndash; 하단 네비게이션 바 &ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:id="@+id/linearLayout3"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:weightSum="5"-->
+<!--            android:layout_gravity="bottom">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/bottomNavigation_home"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/navigation_home_trans" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/bottomNavigation_local"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/navigation_local_trans" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/bottomNavigation_my_keyword"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/navigation_keyword_trans" />-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/bottomNavigation_feed"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/navigation_feed" />-->
+
+
+<!--            <ImageView-->
+<!--                android:id="@+id/bottomNavigation_my_page"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:src="@drawable/navigation_my_page_trans" />-->
+<!--        </LinearLayout>-->
+
+        <!-- 플로팅 액션 버튼 -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/pencil_white"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="16dp"
+            android:layout_gravity="bottom|end"
+            android:backgroundTint="#F14c4c"
+            app:borderWidth="0dp"
+            app:elevation="6dp" />
+
+    </FrameLayout>
+
+</layout>

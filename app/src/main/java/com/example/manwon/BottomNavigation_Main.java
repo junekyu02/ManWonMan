@@ -31,6 +31,8 @@ public class BottomNavigation_Main extends AppCompatActivity {
                     return true;
                 }
                 if(itemId == R.id.feed_icon){
+                    transferTo(FeedFragment.newInstance("param1", "param2"));
+                    return true;
 
                 }
                 if(itemId == R.id.mypage_icon){
