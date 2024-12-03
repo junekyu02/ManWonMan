@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <!-- 보낸 메시지 (오른쪽에 배치) -->
+    <TextView
+        android:id="@+id/text_sent_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:background="@drawable/rounded_sent_message"
+        android:padding="10dp"
+        android:textColor="#FFFFFF"
+        android:visibility="gone" />
+
+    <!-- 받은 메시지 (왼쪽에 배치) -->
+    <TextView
+        android:id="@+id/text_received_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:background="@drawable/rounded_received_message"
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:visibility="gone" />
+
+</LinearLayout>
