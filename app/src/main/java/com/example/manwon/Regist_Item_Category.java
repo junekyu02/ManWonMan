@@ -86,7 +86,6 @@ public class Regist_Item_Category extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.category_details_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

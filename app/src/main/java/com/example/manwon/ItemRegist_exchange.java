@@ -126,33 +126,39 @@ public class ItemRegist_exchange extends AppCompatActivity {
 
         LinearLayout layout = findViewById(R.id.linearlayout); // 레이아웃 ID 확인
         if (layout != null) {  // layout이 null인 경우를 방지
-            layout.setOnTouchListener((v, event) -> {
-                // 현재 포커스를 가진 뷰를 가져옴
-                View focusedView = getCurrentFocus();
-                if (focusedView != null && focusedView instanceof EditText) {
-                    focusedView.clearFocus();  // 포커스를 제거하여 커서 숨기기
-                    // 입력된 텍스트가 없으면 힌트를 다시 설정
-                    EditText editText = (EditText) focusedView;
-                    if (editText.getText().toString().isEmpty()) {
-                        String resourceName = getResources().getResourceName(editText.getId()); // 리소스 이름을 문자열로 가져옴
-                        if (resourceName.endsWith("title")) {
-                            editText.setHint("작성하기");
-                        } else if (resourceName.endsWith("itemtype1")) {
-                            editText.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                        } else if (resourceName.endsWith("purchase_date")) {
-                            editText.setHint("작성하기");
-                        } else if (resourceName.endsWith("damage_rate")){
-                            editText.setHint("파손 정도에 따라 '80% 손상', '50% 손상', '파손 없음' 중 한가지로 작성하기");
-                        } else if (resourceName.endsWith("etc")) {
-                            editText.setHint("작성하기");
-                        }else if (resourceName.endsWith("itemtype2")) {
-                            editText.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                        } else if (resourceName.endsWith("url")) {
-                            editText.setHint("이미지에 대한 URL 작성하기");
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // 현재 포커스를 가진 뷰를 가져옴
+                    View focusedView = getCurrentFocus();
+
+                    // focusedView가 EditText인 경우
+                    if (focusedView instanceof EditText) {
+                        EditText editText = (EditText) focusedView;
+
+                        // EditText가 아닌 곳을 터치했을 때
+                        if (v != focusedView) {
+                            // 포커스를 제거하여 커서를 숨기고 힌트를 설정
+                            editText.clearFocus();
+
+                            // 힌트 설정 (입력된 텍스트가 없을 때만)
+                            if (editText.getText().toString().isEmpty()) {
+                                String resourceName = getResources().getResourceName(editText.getId()); // 리소스 이름을 문자열로 가져옴
+                                if (resourceName != null) {
+                                    if (resourceName.endsWith("title") || resourceName.endsWith("purchase_date") || resourceName.endsWith("etc")) {
+                                        editText.setHint("작성하기");
+                                    } else if (resourceName.endsWith("itemtype1") || resourceName.endsWith("itemtype2")) {
+                                        editText.setHint("클릭 시 카테고리 유형으로 이동합니다");
+                                    } else if (resourceName.endsWith("damage_rate")) {
+                                        editText.setHint("파손 정도에 따라 '80% 손상', '50% 손상', '파손 없음' 중 한가지로 작성하기");
+                                    } else if (resourceName.endsWith("url")) {
+                                        editText.setHint("이미지에 대한 URL 작성하기");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
-                return false;  // 이벤트를 다른 곳으로 전달
             });
         }
 
