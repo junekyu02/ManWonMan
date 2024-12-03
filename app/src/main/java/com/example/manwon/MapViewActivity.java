@@ -422,6 +422,7 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
                         double latitude = Double.parseDouble(x);
                         double longitude = Double.parseDouble(y);
 
+                        //포인트 A와 B 사이 거리가 10키로 이내의 지역들을 다이얼러그에 다 띄우기 위함
                         if (calculateDistance(curlatitude, curlongitude, latitude, longitude) < 10000.0) {
                             String cityName = sheet.getCell(2, row).getContents();
                             nearCity.add(localName + " " + cityName);
