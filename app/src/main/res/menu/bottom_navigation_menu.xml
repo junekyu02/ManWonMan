@@ -16,6 +16,11 @@
         android:icon="@drawable/navigationbar_feedicon"
         android:title="Feed" />
     <item
+        android:id="@+id/Chatting_icon"
+        android:enabled="true"
+        android:icon="@drawable/navigationbar_chattingicon"
+        android:title="Chatting" />
+    <item
         android:id="@+id/mypage_icon"
         android:enabled="true"
         android:icon="@drawable/navigationbar_mypageicon"
