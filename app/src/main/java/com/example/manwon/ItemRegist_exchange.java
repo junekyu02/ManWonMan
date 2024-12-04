@@ -49,7 +49,7 @@ public class ItemRegist_exchange extends AppCompatActivity {
         itemtype1.setOnClickListener(v -> {
             Intent intent = new Intent(ItemRegist_exchange.this, Regist_Item_Category.class);
             intent.putExtra("itemtype", "itemtype1");  // 어떤 TextView를 클릭했는지 구분
-            startActivityForResult(intent, 200);  // 요청 코드 100으로 결과를 받음
+            startActivityForResult(intent, 200);  // 요청 코드 200으로 결과를 받음
         });
 
         // itemtype2 클릭 시 Regist_Item_Category로 이동
@@ -57,7 +57,7 @@ public class ItemRegist_exchange extends AppCompatActivity {
         itemtype2.setOnClickListener(v -> {
             Intent intent = new Intent(ItemRegist_exchange.this, Regist_Item_Category.class);
             intent.putExtra("itemtype", "itemtype2");  // 어떤 TextView를 클릭했는지 구분
-            startActivityForResult(intent, 201);  // 요청 코드 101으로 결과를 받음
+            startActivityForResult(intent, 201);  // 요청 코드 201으로 결과를 받음
         });
 
         EditText purchase_date = findViewById(R.id.purchase_date);
@@ -232,6 +232,7 @@ public class ItemRegist_exchange extends AppCompatActivity {
                     // 제출하기 버튼 클릭 시 다음 액티비티로 이동
                     Intent intent = new Intent(ItemRegist_exchange.this, ItemRegist_Finish.class);
                     startActivity(intent);  // 액티비티 전환
+                    ItemRegist_exchange.this.finish();    // submit 버튼 클릭 시에 ItemRegist_Finish 액티비티로 넘어가면서 교환하기 등록 화면은 제거함
                 })
                 .setNegativeButton("검토하기", (dialog, id) -> {
                     // 취소 버튼 클릭 시 다이얼로그 닫기

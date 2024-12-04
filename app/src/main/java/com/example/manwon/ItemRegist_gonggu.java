@@ -71,7 +71,7 @@ public class ItemRegist_gonggu extends AppCompatActivity {
         clickSoundId = soundPool.load(this, R.raw.button_click, 1);
 
 
-        // 각 버튼 클릭 시 소리가 클릭소리가 나게끔 하며, 초특가 상품목록을 나타내는 웹페이지로 이동
+        // 쿠팡, 지마켓, ssg, 옥션 이미지 버튼 클릭 시 소리가 클릭소리가 나게끔 하며, 초특가 상품목록을 나타내는 웹페이지로 이동
         ImageButton coupangWebsite = findViewById(R.id.coupang_icon);
         ImageButton gmarketWebsite = findViewById(R.id.gmarket_icon);
         ImageButton ssgWebsite = findViewById(R.id.ssg_icon);
@@ -256,6 +256,7 @@ public class ItemRegist_gonggu extends AppCompatActivity {
                     // 제출하기 버튼 클릭 시 다음 액티비티로 이동
                     Intent intent = new Intent(ItemRegist_gonggu.this, ItemRegist_Finish.class);
                     startActivity(intent);  // 액티비티 전환
+                    ItemRegist_gonggu.this.finish();    // submit 버튼 클릭 시에 ItemRegist_Finish 액티비티로 넘어가면서 교환하기 등록 화면은 제거함
                 })
                 .setNegativeButton("검토하기", (dialog, id) -> {
                     // 취소 버튼 클릭 시 다이얼로그 닫기

@@ -10,6 +10,14 @@
 
     <style name="Theme.ManWon" parent="Base.Theme.ManWon" />
 
+    <!-- Splash 테마 (아이콘 안보이게끔 하기 위함) -->
+    <style name="AppTheme.Splash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_transparent</item>
+        <item name="windowSplashScreenAnimationDuration">0</item>
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.ManWon</item>
+    </style>
+
     <!-- BottomSheetDialog 테마 -->
     <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <!-- 커스터마이징 요소 -->

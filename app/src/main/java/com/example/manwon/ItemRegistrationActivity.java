@@ -15,7 +15,7 @@ public class ItemRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_registration);
 
-        // ImageButton을 코드에서 참조
+        // 화면에 표시된 좌,우 imageButton을 각각 java 코드에서 참조
         ImageButton imageButton_left = findViewById(R.id.imagebutton_left);
         ImageButton imageButton_right = findViewById(R.id.imagebutton_right);
 
@@ -26,6 +26,7 @@ public class ItemRegistrationActivity extends AppCompatActivity {
                 // 클릭 시 ItemRegist_exchange 액티비티로 이동
                 Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_gonggu.class);
                 startActivity(intent);
+                ItemRegistrationActivity.this.finish();    // ItemRegistrationActivity는 버튼 클릭 시 종료하도록 함 (스택에 남아있지 않게 하기 위함)
             }
         });
 
@@ -36,6 +37,7 @@ public class ItemRegistrationActivity extends AppCompatActivity {
                 // 클릭 시 해당 액티비티로 이동
                 Intent intent = new Intent(ItemRegistrationActivity.this, ItemRegist_exchange.class);
                 startActivity(intent);
+                ItemRegistrationActivity.this.finish();    // ItemRegistrationActivity는 버튼 클릭 시 종료하도록 함 (스택에 남아있지 않게 하기 위함)
             }
         });
     }

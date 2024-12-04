@@ -17,7 +17,7 @@ public class HomeFragment extends Fragment {
         return new HomeFragment();
     }
 
-    // HomeFragment가 처음 생성될 때 호출되는 메서드
+    // HomeFragment가 화면에 추가되거나 처음 생성될 때 호출되는 메서드
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
