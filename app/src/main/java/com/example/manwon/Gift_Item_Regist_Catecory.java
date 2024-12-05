@@ -1,6 +1,7 @@
 package com.example.manwon;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,9 +38,28 @@ public class Gift_Item_Regist_Catecory extends AppCompatActivity {
 
     // Fragment를 전환하는 메서드
     private void loadFragment(Fragment fragment) {
+
+        // 기존 UI 숨기기
+        findViewById(R.id.category_buttons_layout).setVisibility(View.GONE);
+        findViewById(R.id.category_title).setVisibility(View.GONE);
+        findViewById(R.id.horizontal_frame).setVisibility(View.GONE);
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.category_details_container, fragment); // `category_details_container`는 XML의 Fragment 배치 영역
         transaction.addToBackStack(null); // 뒤로 가기 시 이전 Fragment로 돌아가도록 설정
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack(); // 프래그먼트 제거
+            // 기존 UI 복원
+            findViewById(R.id.category_buttons_layout).setVisibility(View.VISIBLE);
+            findViewById(R.id.category_title).setVisibility(View.VISIBLE);
+            findViewById(R.id.horizontal_frame).setVisibility(View.VISIBLE);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
