@@ -57,12 +57,20 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             startActivityForResult(intent, 100);  // 요청 코드 100으로 결과를 받음
         });
 
-        // itemtype2 클릭 시 Regist_Item_Category로 이동
-        TextView itemtype2 = findViewById(R.id.itemtype2);
-        itemtype2.setOnClickListener(v -> {
-            Intent intent = new Intent(ItemRegist_gonggu.this, Regist_Item_Category.class);
-            intent.putExtra("itemtype", "itemtype2");  // 어떤 TextView를 클릭했는지 구분
-            startActivityForResult(intent, 101);  // 요청 코드 101으로 결과를 받음
+        EditText content = findViewById(R.id.content);
+        content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // 포커스를 받으면 텍스트를 지운다.
+                    content.setHint("");
+                } else {
+                    // 포커스를 잃으면 텍스트가 비어있으면 "작성하기"로 돌아간다.
+                    if (content.getText().toString().isEmpty()) {
+                        content.setHint("작성하기");
+                    }
+                }
+            }
         });
 
         // soundPool 초기화
@@ -171,9 +179,9 @@ public class ItemRegist_gonggu extends AppCompatActivity {
                             if (editText.getText().toString().isEmpty()) {
                                 String resourceName = getResources().getResourceName(editText.getId());
                                 if (resourceName != null) {
-                                    if (resourceName.endsWith("title") || resourceName.endsWith("total_number")) {
+                                    if (resourceName.endsWith("title") || resourceName.endsWith("content") || resourceName.endsWith("total_number")) {
                                         editText.setHint("작성하기");
-                                    } else if (resourceName.endsWith("itemtype1") || resourceName.endsWith("itemtype2")) {
+                                    } else if (resourceName.endsWith("itemtype1")) {
                                         editText.setHint("클릭 시 카테고리 유형으로 이동합니다");
                                     } else if (resourceName.endsWith("url")) {
                                         editText.setHint("이미지에 대한 URL 작성하기");
@@ -233,11 +241,6 @@ public class ItemRegist_gonggu extends AppCompatActivity {
                 TextView itemtype1 = findViewById(R.id.itemtype1);
                 itemtype1.setText(resultText);
                 itemtype1.setTextColor(selectedColor);
-            } else if (requestCode == 101) {
-                // itemtype2 TextView 텍스트 변경
-                TextView itemtype2 = findViewById(R.id.itemtype2);
-                itemtype2.setText(resultText);
-                itemtype2.setTextColor(selectedColor);
             }
         }
     }

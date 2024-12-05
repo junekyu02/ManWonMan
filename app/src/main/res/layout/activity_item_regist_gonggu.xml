@@ -85,19 +85,22 @@
         android:layout_marginTop="15dp"
         android:textSize="14sp"
         android:textStyle="bold"
-        android:text="3. 교환을 희망하는 물품 유형"/>
-    <TextView
-        android:id="@+id/itemtype2"
+        android:text="3. 상세 내용 작성 (간략히)"/>
+    <EditText
+        android:id="@+id/content"
         android:layout_width="250dp"
-        android:layout_height="25dp"
+        android:layout_height="60dp"
+        android:gravity="start|top"
         android:layout_marginStart="50dp"
         android:layout_marginTop="2dp"
-        android:paddingVertical="5dp"
         android:paddingStart="8dp"
-        android:text="클릭 시 카테고리 유형으로 이동합니다"
+        android:paddingTop="8dp"
+        android:textColorHint="#FFFFFF"
+        android:hint="작성하기"
         android:textSize="8sp"
-        android:textColor="@color/white"
         android:textStyle="bold"
+        android:inputType="text"
+        android:cursorVisible="true"
         android:background="@drawable/regist_rounded_edittext"/>
 
     <TextView

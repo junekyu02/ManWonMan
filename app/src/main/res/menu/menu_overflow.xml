@@ -3,16 +3,16 @@
 
     <item
         android:id="@+id/option_one"
-        android:title="선택..."
+        android:title="설정한 지역1"
         android:icon="@drawable/expand_overflow" />
 
     <item
         android:id="@+id/option_two"
-        android:title="선택2..."
+        android:title="설정한 지역2"
         android:icon="@drawable/expand_overflow" />
 
     <item
         android:id="@+id/option_three"
-        android:title="옵션 3"
+        android:title="상세 지역 재설정"
         android:icon="@drawable/expand_overflow" />
 </menu>

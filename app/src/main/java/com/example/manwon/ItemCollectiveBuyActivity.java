@@ -1,5 +1,6 @@
 package com.example.manwon;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,12 +12,20 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,13 +39,46 @@ public class ItemCollectiveBuyActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE_PERMISSION = 123;
 
+    private DatabaseReference databaseReference;
+    private String userId;
+    private String region1 = "설정된 지역1 없음";
+    private String region2 = "설정된 지역2 없음";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_collective_buy);
 
-        // 툴바 텍스트와 리사이클러 뷰 연결
+        // Firebase Database 초기화
+        databaseReference = FirebaseDatabase.getInstance().getReference("location");
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
         toolbarText = findViewById(R.id.current_location);
+
+        // Firebase에서 지역 데이터 가져오기
+        databaseReference.child(userId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> regions = new ArrayList<>();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    regions.add(child.getValue(String.class));
+                }
+
+                // 첫 번째와 두 번째 지역 할당
+                if (regions.size() > 0) {
+                    region1 = regions.get(0);
+                    toolbarText.setText(region1); // 툴바 텍스트 변경
+                }
+                if (regions.size() > 1) {
+                    region2 = regions.get(1);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ItemCollectiveBuyActivity.this, "지역 정보를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -121,24 +163,33 @@ public class ItemCollectiveBuyActivity extends AppCompatActivity {
     }
 
 
-    // 오버플로우 메뉴를 띄우는 메서드
     private void showPopupMenu(View view) {
         PopupMenu popupMenu = new PopupMenu(ItemCollectiveBuyActivity.this, view);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_overflow, popupMenu.getMenu()); // 메뉴 리소스 불러오기
+
+        // 메뉴 텍스트 동적 변경
+        MenuItem itemOne = popupMenu.getMenu().findItem(R.id.option_one);
+        MenuItem itemTwo = popupMenu.getMenu().findItem(R.id.option_two);
+        itemOne.setTitle(region1);
+        itemTwo.setTitle(region2);
 
         // 메뉴 항목 클릭 리스너 설정
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 if (item.getItemId() == R.id.option_one) {
-                    toolbarText.setText("첫 번째 항목 클릭됨");
+                    toolbarText.setText(region1);
                     return true;
                 } else if (item.getItemId() == R.id.option_two) {
-                    toolbarText.setText("두 번째 항목 클릭됨");
+                    toolbarText.setText(region2);
                     return true;
                 } else if (item.getItemId() == R.id.option_three) {
-                    toolbarText.setText("세 번째 항목 클릭됨");
+                    // 모든 액티비티 종료 후 MapView로 이동
+                    Intent intent = new Intent(ItemCollectiveBuyActivity.this, MapViewActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish(); // 현재 액티비티도 종료
                     return true;
                 }
                 return false;
