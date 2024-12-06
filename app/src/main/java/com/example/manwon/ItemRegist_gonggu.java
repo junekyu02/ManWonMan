@@ -14,179 +14,142 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemRegist_gonggu extends AppCompatActivity {
 
     private SoundPool soundPool;
     private int clickSoundId;
 
+    private EditText title, content, total_number, url;
+    private TextView itemtype1;
+    private DatabaseReference databaseReference;
+    private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_regist_gonggu);
 
-        ImageButton backButton = findViewById(R.id.back_button);
-        backButton.setOnClickListener(v -> {
-            // 현재 액티비티 종료하고 이전 화면으로 돌아감
-            finish();
-        });
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        EditText title = findViewById(R.id.title);
-        title.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    title.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "작성하기"로 돌아간다.
-                    if (title.getText().toString().isEmpty()) {
-                        title.setHint("작성하기");
-                    }
+        ImageButton backButton = findViewById(R.id.back_button);
+        backButton.setOnClickListener(v -> finish());
+
+        title = findViewById(R.id.title);
+        title.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                title.setHint("");
+            } else {
+                if (title.getText().toString().isEmpty()) {
+                    title.setHint("작성하기");
                 }
             }
         });
 
-        // itemtype1 클릭 시 Regist_Item_Category로 이동
-        TextView itemtype1 = findViewById(R.id.itemtype1);
+        itemtype1 = findViewById(R.id.itemtype1);
         itemtype1.setOnClickListener(v -> {
             Intent intent = new Intent(ItemRegist_gonggu.this, Regist_Item_Category.class);
-            intent.putExtra("itemtype", "itemtype1");  // 어떤 TextView를 클릭했는지 구분
-            startActivityForResult(intent, 100);  // 요청 코드 100으로 결과를 받음
+            intent.putExtra("itemtype", "itemtype1");
+            startActivityForResult(intent, 100);
         });
 
-        EditText content = findViewById(R.id.content);
-        content.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    content.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "작성하기"로 돌아간다.
-                    if (content.getText().toString().isEmpty()) {
-                        content.setHint("작성하기");
-                    }
+        content = findViewById(R.id.content);
+        content.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                content.setHint("");
+            } else {
+                if (content.getText().toString().isEmpty()) {
+                    content.setHint("작성하기");
                 }
             }
         });
 
-        // soundPool 초기화
         soundPool = new SoundPool.Builder().setMaxStreams(1).build();
-        // 클릭 소리 파일 로드
         clickSoundId = soundPool.load(this, R.raw.button_click, 1);
 
-
-        // 쿠팡, 지마켓, ssg, 옥션 이미지 버튼 클릭 시 소리가 클릭소리가 나게끔 하며, 초특가 상품목록을 나타내는 웹페이지로 이동
         ImageButton coupangWebsite = findViewById(R.id.coupang_icon);
         ImageButton gmarketWebsite = findViewById(R.id.gmarket_icon);
         ImageButton ssgWebsite = findViewById(R.id.ssg_icon);
         ImageButton auctionWebsite = findViewById(R.id.auction_icon);
 
-        coupangWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
-                String url = "https://www.coupang.com/np/search?q=%EC%98%A4%EB%8A%98%EC%9D%98%ED%8A%B9%EA%B0%80%ED%95%A0%EC%9D%B8&channel=relate";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            }
+        coupangWebsite.setOnClickListener(view -> {
+            soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+            String urlStr = "https://www.coupang.com/np/search?q=%EC%98%A4%EB%8A%98%EC%9D%98%ED%8A%B9%EA%B0%80%ED%95%A0%EC%9D%B8&channel=relate";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
+            startActivity(intent);
         });
 
-        gmarketWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
-                String url = "https://www.gmarket.co.kr/n/search?keyword=%ED%8A%B9%EA%B0%80";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            }
+        gmarketWebsite.setOnClickListener(view -> {
+            soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+            String urlStr = "https://www.gmarket.co.kr/n/search?keyword=%ED%8A%B9%EA%B0%80";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
+            startActivity(intent);
         });
 
-        ssgWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
-                String url = "https://www.ssg.com/page/pc/SpecialPrice.ssg";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            }
+        ssgWebsite.setOnClickListener(view -> {
+            soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+            String urlStr = "https://www.ssg.com/page/pc/SpecialPrice.ssg";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
+            startActivity(intent);
         });
 
-        auctionWebsite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
-                String url = "https://www.auction.co.kr/n/search?keyword=%EC%B4%88%ED%8A%B9%EA%B0%80%EC%84%B8%EC%9D%BC";
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            }
+        auctionWebsite.setOnClickListener(view -> {
+            soundPool.play(clickSoundId, 1f, 1f, 0, 0, 1f);
+            String urlStr = "https://www.auction.co.kr/n/search?keyword=%EC%B4%88%ED%8A%B9%EA%B0%80%EC%84%B8%EC%9D%BC";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlStr));
+            startActivity(intent);
         });
 
-
-        EditText total_number = findViewById(R.id.total_number);
-        total_number.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    total_number.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "작성하기"로 돌아간다.
-                    if (total_number.getText().toString().isEmpty()) {
-                        total_number.setHint("작성하기");
-                    }
+        total_number = findViewById(R.id.total_number);
+        total_number.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                total_number.setHint("");
+            } else {
+                if (total_number.getText().toString().isEmpty()) {
+                    total_number.setHint("작성하기");
                 }
             }
         });
 
-        EditText url = findViewById(R.id.url);
-        url.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    // 포커스를 받으면 텍스트를 지운다.
-                    url.setHint("");
-                } else {
-                    // 포커스를 잃으면 텍스트가 비어있으면 "이미지에 대한 URL 작성하기"로 돌아간다.
-                    if (url.getText().toString().isEmpty()) {
-                        url.setHint("이미지에 대한 URL 작성하기");
-                    }
+        url = findViewById(R.id.url);
+        url.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                url.setHint("");
+            } else {
+                if (url.getText().toString().isEmpty()) {
+                    url.setHint("이미지에 대한 URL 작성하기");
                 }
             }
         });
 
         LinearLayout layout = findViewById(R.id.linearlayout);
         if (layout != null) {
-            layout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // 현재 포커스를 가진 뷰를 가져옴
-                    View focusedView = getCurrentFocus();
-
-                    // focusedView가 EditText인 경우
-                    if (focusedView instanceof EditText) {
-                        EditText editText = (EditText) focusedView;
-
-                        // EditText가 아닌 곳을 터치했을 때
-                        if (v != focusedView) {
-                            // 포커스를 제거하여 커서를 숨기고 힌트를 설정
-                            editText.clearFocus();
-
-                            // 힌트 설정 (입력된 텍스트가 없을 때만)
-                            if (editText.getText().toString().isEmpty()) {
-                                String resourceName = getResources().getResourceName(editText.getId());
-                                if (resourceName != null) {
-                                    if (resourceName.endsWith("title") || resourceName.endsWith("content") || resourceName.endsWith("total_number")) {
-                                        editText.setHint("작성하기");
-                                    } else if (resourceName.endsWith("itemtype1")) {
-                                        editText.setHint("클릭 시 카테고리 유형으로 이동합니다");
-                                    } else if (resourceName.endsWith("url")) {
-                                        editText.setHint("이미지에 대한 URL 작성하기");
-                                    }
-                                }
+            layout.setOnClickListener(v -> {
+                View focusedView = getCurrentFocus();
+                if (focusedView instanceof EditText && v != focusedView) {
+                    EditText editText = (EditText) focusedView;
+                    editText.clearFocus();
+                    if (editText.getText().toString().isEmpty()) {
+                        String resourceName = getResources().getResourceName(editText.getId());
+                        if (resourceName != null) {
+                            if (resourceName.endsWith("title") || resourceName.endsWith("content") || resourceName.endsWith("total_number")) {
+                                editText.setHint("작성하기");
+                            } else if (resourceName.endsWith("url")) {
+                                editText.setHint("이미지에 대한 URL 작성하기");
                             }
                         }
                     }
@@ -194,50 +157,37 @@ public class ItemRegist_gonggu extends AppCompatActivity {
             });
         }
 
-
         TextView urlValidationMessage = findViewById(R.id.urlValidationMessage);
-
-        // URL 검증을 위한 TextWatcher 적용
         url.addTextChangedListener(createUrlTextWatcher(urlValidationMessage));
     }
 
     private TextWatcher createUrlTextWatcher(TextView urlValidationMessage) {
         return new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // URL 형식 검사
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!Patterns.WEB_URL.matcher(s.toString()).matches()) {
-                    // URL 형식이 잘못되었을 경우
                     urlValidationMessage.setText("Invalid URL Format");
-                    urlValidationMessage.setTextColor(Color.RED);  // 빨간색 메시지
-                    urlValidationMessage.setVisibility(View.VISIBLE);  // 메시지를 보이게 함
+                    urlValidationMessage.setTextColor(Color.RED);
+                    urlValidationMessage.setVisibility(View.VISIBLE);
                 } else {
-                    // URL 형식이 맞을 경우
                     urlValidationMessage.setText("Valid URL Format");
-                    urlValidationMessage.setTextColor(Color.GREEN);  // 초록색 메시지
-                    urlValidationMessage.setVisibility(View.VISIBLE);  // 메시지를 보이게 함
+                    urlValidationMessage.setTextColor(Color.GREEN);
+                    urlValidationMessage.setVisibility(View.VISIBLE);
                 }
             }
-
-            @Override
-            public void afterTextChanged(Editable s) {}
+            @Override public void afterTextChanged(Editable s) {}
         };
     }
 
-    // onActivityResult() 메서드 오버라이드 (2번 액티비티로부터 결과 받기)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && data != null) {
-            String resultText = data.getStringExtra("selectedText");  // 2번 액티비티에서 전달된 텍스트
+            String resultText = data.getStringExtra("selectedText");
             int selectedColor = data.getIntExtra("selectedColor", Color.BLACK);
 
             if (requestCode == 100) {
-                // itemtype1 TextView 텍스트 변경
                 TextView itemtype1 = findViewById(R.id.itemtype1);
                 itemtype1.setText(resultText);
                 itemtype1.setTextColor(selectedColor);
@@ -247,26 +197,74 @@ public class ItemRegist_gonggu extends AppCompatActivity {
 
     // Submit 버튼 클릭 시 호출되는 메서드
     public void onSubmitButtonClick(View view) {
-        // AlertDialog 생성
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemRegist_gonggu.this);
-
-        builder.setIcon(R.drawable.registration_warning); // 다이얼로그 아이콘 설정
+        builder.setIcon(R.drawable.registration_warning);
         builder.setTitle("정말 등록하시겠습니까?");
-
-        builder.setMessage("빠진 부분이 있는지 반드시 확인해주세요.")  // 다이얼로그에 표시할 메시지
-                .setCancelable(false)  // 다이얼로그 외부 터치 시 닫히지 않도록 설정
+        builder.setMessage("빠진 부분이 있는지 반드시 확인해주세요.")
+                .setCancelable(false)
                 .setPositiveButton("제출하기", (dialog, id) -> {
-                    // 제출하기 버튼 클릭 시 다음 액티비티로 이동
-                    Intent intent = new Intent(ItemRegist_gonggu.this, ItemRegist_Finish.class);
-                    startActivity(intent);  // 액티비티 전환
-                    ItemRegist_gonggu.this.finish();    // submit 버튼 클릭 시에 ItemRegist_Finish 액티비티로 넘어가면서 교환하기 등록 화면은 제거함
-                })
-                .setNegativeButton("검토하기", (dialog, id) -> {
-                    // 취소 버튼 클릭 시 다이얼로그 닫기
-                    dialog.dismiss();
-                });
+                    // 아이템 정보 가져오기
+                    String titleStr = title.getText().toString().trim();
+                    String categoryStr = ((TextView)findViewById(R.id.itemtype1)).getText().toString().trim();
+                    String contentStr = content.getText().toString().trim();
+                    String imgUrlStr = url.getText().toString().trim();
+                    String totalNumStr = total_number.getText().toString().trim();
 
-        // 다이얼로그 띄우기
+                    int targetParticipants = 30;
+                    if (!totalNumStr.isEmpty()) {
+                        try {
+                            targetParticipants = Integer.parseInt(totalNumStr);
+                        } catch (NumberFormatException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    GongguItem_Model newItem = new GongguItem_Model(
+                            categoryStr.isEmpty()? "기타" : categoryStr,
+                            titleStr.isEmpty()? "제목없음" : titleStr,
+                            contentStr.isEmpty()? "상세 내용 없음" : contentStr,
+                            imgUrlStr,
+                            false,
+                            0,
+                            targetParticipants
+                    );
+
+                    // 현재 사용자 지역정보 가져와서 해당 지역에 저장
+                    DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("location").child(userId);
+                    locationRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            List<String> userRegions = new ArrayList<>();
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                String region = ds.getValue(String.class);
+                                if (region != null && !region.isEmpty()) {
+                                    userRegions.add(region);
+                                }
+                            }
+
+                            if (userRegions.isEmpty()) {
+                                // 지역이 없는 경우 기본값 처리
+                                userRegions.add("기타지역");
+                            }
+
+                            // 각 지역에 아이템 저장
+                            for (String region : userRegions) {
+                                String regionKey = region.replace(" ", "_");
+                                databaseReference.child("gongguItems").child(regionKey).child(userId).push().setValue(newItem);
+                            }
+
+                            Intent intent = new Intent(ItemRegist_gonggu.this, ItemRegist_Finish.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {}
+                    });
+
+                })
+                .setNegativeButton("검토하기", (dialog, id) -> dialog.dismiss());
+
         AlertDialog alert = builder.create();
         alert.show();
     }

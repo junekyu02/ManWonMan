@@ -4,28 +4,30 @@ public class GongguItem_Model {
     private String itemCategoryType;
     private String itemTitle;
     private String itemDetailsText;
-    private int itemImageResId;
-    private boolean isParticipating;
+    private String imageUrl; // 이미지 URL
+    private boolean participating;
     private int currentParticipants;
     private int targetParticipants;
 
-    // Constructor
-    public GongguItem_Model(String itemCategoryType, String itemTitle, String itemDetailsText, int itemImageResId, boolean isParticipating, int currentParticipants, int targetParticipants) {
+    public GongguItem_Model() {
+        // Firebase 직렬화를 위해 기본생성자 필요
+    }
+
+    public GongguItem_Model(String itemCategoryType, String itemTitle, String itemDetailsText, String imageUrl, boolean participating, int currentParticipants, int targetParticipants) {
         this.itemCategoryType = itemCategoryType;
         this.itemTitle = itemTitle;
         this.itemDetailsText = itemDetailsText;
-        this.itemImageResId = itemImageResId;
-        this.isParticipating = isParticipating;
+        this.imageUrl = imageUrl;
+        this.participating = participating;
         this.currentParticipants = currentParticipants;
         this.targetParticipants = targetParticipants;
     }
 
-    // Getters and Setters
     public String getItemCategoryType() {
         return itemCategoryType;
     }
 
-    public void setItemCategoryType(String category) {
+    public void setItemCategoryType(String itemCategoryType) {
         this.itemCategoryType = itemCategoryType;
     }
 
@@ -45,20 +47,12 @@ public class GongguItem_Model {
         this.itemDetailsText = itemDetailsText;
     }
 
-    public int getItemImageResId() {
-        return itemImageResId;
-    }
-
-    public void setItemImageResId(int itemImageResId) {
-        this.itemImageResId = itemImageResId;
-    }
-
     public boolean isParticipating() {
-        return isParticipating;
+        return participating;
     }
 
     public void setParticipating(boolean participating) {
-        isParticipating = participating;
+        this.participating = participating;
     }
 
     public int getCurrentParticipants() {
@@ -71,5 +65,17 @@ public class GongguItem_Model {
 
     public int getTargetParticipants() {
         return targetParticipants;
+    }
+
+    public void setTargetParticipants(int targetParticipants) {
+        this.targetParticipants = targetParticipants;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
