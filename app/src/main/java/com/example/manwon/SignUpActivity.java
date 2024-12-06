@@ -15,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.manwon.databinding.ActivitySignupBinding;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -80,6 +82,11 @@ public class SignUpActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // 회원가입 성공
                                 Toast.makeText(SignUpActivity.this, "회원가입 성공!", Toast.LENGTH_SHORT).show();
+
+                                // **추가 부분 시작: 닉네임 Firebase에 저장**
+                                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(uid);
+                                userRef.child("nickname").setValue(nickname);
 
                                 // 회원 정보 저장 또는 추가 처리 (필요 시)
                                 Intent intent = new Intent(SignUpActivity.this, YakGwanActivity.class);
