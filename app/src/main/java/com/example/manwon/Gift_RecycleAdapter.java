@@ -14,10 +14,21 @@ import java.util.List;
 public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapter.CafeDessertViewHolder> {
 
     private List<Gift_CafeDessertItem> itemList;
+    private OnItemClickListener listener;
 
     // 생성자
     public Gift_RecycleAdapter(List<Gift_CafeDessertItem> itemList) {
         this.itemList = itemList;
+    }
+
+    // 인터페이스 정의
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    // 리스너 설정 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     // ViewHolder 생성
@@ -27,7 +38,6 @@ public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapte
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_cafe_dessert, parent, false);
         return new CafeDessertViewHolder(itemView);
-
     }
 
     // ViewHolder에 데이터 바인딩
@@ -40,9 +50,11 @@ public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapte
         holder.titleTextView.setText(item.getTitle());
         holder.imageView.setImageResource(item.getImageResource());
 
-        // 버튼 클릭 이벤트 설정 (예: 상세 보기 버튼)
-        holder.detailButton.setOnClickListener(v -> {
-            // 버튼 클릭 시 처리할 코드
+        // 교환하기 버튼 클릭 리스너 설정
+        holder.exchangeButton.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(position);
+            }
         });
     }
 
@@ -69,3 +81,5 @@ public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapte
         }
     }
 }
+
+

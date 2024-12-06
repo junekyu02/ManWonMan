@@ -1,6 +1,8 @@
 package com.example.manwon;
 
+import android.content.Intent;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,5 +37,14 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
         // 어댑터 설정
         adapter = new Gift_RecycleAdapter(itemList);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new Gift_RecycleAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // 교환하기 버튼 클릭 시 activity_gift_userchange로 이동
+                Intent intent = new Intent(Gift_CafeDessertActivity.this, Gift_Userchange_Activity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

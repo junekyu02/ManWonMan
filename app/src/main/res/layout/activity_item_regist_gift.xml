@@ -68,7 +68,7 @@
         android:text="2. 교환할 유형"
         android:textSize="14sp"
         android:textStyle="bold" />
-    <ImageButton
+    <TextView
         android:id="@+id/gift_itemtype1"
         android:layout_width="250dp"
         android:layout_height="25dp"
@@ -127,7 +127,7 @@
         android:text="5. 교환을 희망하는 쿠폰 유형"
         android:textSize="14sp"
         android:textStyle="bold" />
-    <EditText
+    <TextView
         android:id="@+id/gift_preferred_coupon"
         android:layout_width="250dp"
         android:layout_height="20dp"
