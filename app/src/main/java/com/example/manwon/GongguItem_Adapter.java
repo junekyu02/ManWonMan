@@ -43,7 +43,7 @@ public class GongguItem_Adapter extends RecyclerView.Adapter<GongguItem_Adapter.
         // 이미지 URL을 사용하려면 Glide 등 라이브러리 사용 권장:
         // Glide.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.itemImage);
         // 여기서는 일단 기본 아이콘으로:
-        holder.itemImage.setImageResource(R.drawable.participant_off);
+        holder.itemImage.setImageResource(R.drawable.marking_on);
 
         holder.currentParticipantsText.setText(String.valueOf(item.getCurrentParticipants()));
         holder.targetParticipantsText.setText(String.valueOf(item.getTargetParticipants()));
