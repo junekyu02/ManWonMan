@@ -3,15 +3,8 @@ package com.example.manwon;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
-import com.bumptech.glide.Glide;
 import com.example.manwon.databinding.ActivityFeedWriteBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,47 +28,19 @@ public class FeedWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_write);
 
-        // Apply edge-to-edge insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // Bind the layout
         binding = ActivityFeedWriteBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Safely extract extras from the Intent
+        // 링크를 Intent에서 가져옴
         String link = getIntent().getStringExtra("article_link");
-        String articleTitle = getIntent().getStringExtra("article_title");
-        String imageUrl = getIntent().getStringExtra("article_imageUrl");
+        if (link == null) link = "";  // 링크가 없으면 빈 문자열로 설정
 
-        if (link == null) link = "";
-        if (articleTitle == null) articleTitle = "";
-        if (imageUrl == null) imageUrl = "";
+        Log.d(TAG, "link : " + link);
 
-        Log.d(TAG, "link : " + link + ", title : " + articleTitle + ", imageUrl : " + imageUrl);
-
-        TextView articleTextView = findViewById(R.id.articleTextView);
-        ImageView articleImageArea = findViewById(R.id.articleImageArea);
-
-        articleTextView.setText(articleTitle);
-
-        // Load the image using Glide
-        if (!imageUrl.isEmpty()) {
-            Glide.with(this)
-                    .load(imageUrl)
-                    .into(articleImageArea);
-        }
-
-        // Previous button
+        // 뒤로 가기 버튼
         binding.previousBtn.setOnClickListener(v -> finish());
 
-        // Register button
-        String finalArticleTitle = articleTitle;
-        String finalLink = link;
-        String finalImageUrl = imageUrl;
+        // 등록 버튼 클릭 시
         binding.registerBtn.setOnClickListener(v -> {
             String title = binding.titleEditText.getText().toString();
             String content = binding.contentEditText.getText().toString();
@@ -87,15 +52,16 @@ public class FeedWriteActivity extends AppCompatActivity {
             String time = getTime();
             DatabaseReference feedRef = database.getReference("feeds");
 
-            // Create a unique ID for the new post
+            // 새 피드 아이디 생성
             DatabaseReference newPostRef = feedRef.push();
             String postId = newPostRef.getKey();
             if (postId == null) return;
 
-            FeedModel feed = new FeedModel(postId, userId, title, time, content, finalArticleTitle, finalLink, finalImageUrl, 0, 0);
+            // FeedModel 생성 시 기사 제목과 이미지 URL 제거
+            FeedModel feed = new FeedModel(postId, userId, title, time, content, 0, 0, currentUser != null ? currentUser.getDisplayName() : "Unknown");
             newPostRef.setValue(feed);
 
-            finish();
+            finish();  // 활동 종료
         });
     }
 

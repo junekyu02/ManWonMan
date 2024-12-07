@@ -1,6 +1,7 @@
 package com.example.manwon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -55,9 +55,9 @@ public class FeedRVAdapter extends RecyclerView.Adapter<FeedRVAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView nameTextView, titleTextView, timeTextView, contentTextView, likesTextView, commentsTextView;
-        private final ImageView likeBtn, commentBtn, articleImageArea, moreVertBtn;
+        private final TextView nameTextView, titleTextView, timeTextView, contentTextView, likesTextView;
         private final CircleImageView imageArea;
+        private final ImageView likeBtn, moreVertBtn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,10 +66,7 @@ public class FeedRVAdapter extends RecyclerView.Adapter<FeedRVAdapter.ViewHolder
             timeTextView = itemView.findViewById(R.id.timeTextView);
             contentTextView = itemView.findViewById(R.id.contentTextView);
             likesTextView = itemView.findViewById(R.id.likesTextView);
-            commentsTextView = itemView.findViewById(R.id.commentsTextView);
             likeBtn = itemView.findViewById(R.id.likeBtn);
-            commentBtn = itemView.findViewById(R.id.commentBtn);
-            articleImageArea = itemView.findViewById(R.id.articleImageArea);
             moreVertBtn = itemView.findViewById(R.id.moreVertBtn);
             imageArea = itemView.findViewById(R.id.imageArea);
         }
@@ -82,7 +79,7 @@ public class FeedRVAdapter extends RecyclerView.Adapter<FeedRVAdapter.ViewHolder
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
-                        String userName = snapshot.child("name").getValue(String.class);
+                        String userName = snapshot.child("nickname").getValue(String.class);
                         nameTextView.setText(userName != null ? userName : "Unknown");
                     } else {
                         nameTextView.setText("Unknown");
@@ -96,19 +93,18 @@ public class FeedRVAdapter extends RecyclerView.Adapter<FeedRVAdapter.ViewHolder
             });
 
             titleTextView.setText(item.getTitle());
-            timeTextView.setText(item.getTime());
+            timeTextView.setText(formatTime(item.getTime()));  // 시간 형식화 처리
             contentTextView.setText(item.getContent());
             likesTextView.setText("좋아요 " + item.getLikes() + "개");
-            commentsTextView.setText("댓글 " + item.getCommentsCnt() + "개");
 
-            if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
-                Glide.with(itemView.getContext()).load(item.getImageUrl()).into(articleImageArea);
-            }
+            // 하트 버튼 클릭 이벤트
+            likeBtn.setImageResource(item.getLikedUsers().contains(auth.getCurrentUser().getUid())
+                    ? R.drawable.heart
+                    : R.drawable.favorite);
 
-            moreVertBtn.setOnClickListener(v -> showPopupMenu(v, item));
             likeBtn.setOnClickListener(v -> toggleLike(item));
+            moreVertBtn.setOnClickListener(v -> showPopupMenu(v, item));
         }
-
 
         private void toggleLike(FeedModel item) {
             String currentUserId = auth.getCurrentUser().getUid();
@@ -142,11 +138,12 @@ public class FeedRVAdapter extends RecyclerView.Adapter<FeedRVAdapter.ViewHolder
                 items.remove(item);
                 notifyDataSetChanged();
             }).addOnFailureListener(e -> {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("삭제에 실패했습니다.");
-                builder.setPositiveButton("확인", null);
-                builder.show();
+                // 삭제 실패 시 알림 추후 앱 앱 시연 전에 넣기
             });
+        }
+
+        private String formatTime(String time) {
+            return time;
         }
     }
 }

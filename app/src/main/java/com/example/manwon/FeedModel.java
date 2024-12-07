@@ -9,31 +9,30 @@ public class FeedModel {
     private String title;
     private String time;
     private String content;
-    private String articleTitle;
     private String link;
-    private String imageUrl;
+    private String nickname;
     private int likes;
     private int commentsCnt;
     private List<String> likedUsers;
 
+    // 기본 생성자 (Firebase에서 필요)
     public FeedModel() {
-        // Default constructor required for Firebase
+        // likedUsers를 빈 리스트로 초기화
+        this.likedUsers = new ArrayList<>();
     }
 
-    // Constructor matching the FeedWriteActivity requirements
-    public FeedModel(String id, String uid, String title, String time, String content,
-                     String articleTitle, String link, String imageUrl, int likes, int commentsCnt) {
+    // FeedWriteActivity
+    public FeedModel(String id, String uid, String title, String time, String content, int likes, int commentsCnt, String nickname) {
         this.id = id;
         this.uid = uid;
         this.title = title;
         this.time = time;
         this.content = content;
-        this.articleTitle = articleTitle;
         this.link = link;
-        this.imageUrl = imageUrl;
         this.likes = likes;
         this.commentsCnt = commentsCnt;
-        this.likedUsers = new ArrayList<>();
+        this.nickname = nickname;
+        this.likedUsers = new ArrayList<>();  // likedUsers를 빈 리스트로 초기화
     }
 
     // Getters and Setters
@@ -52,14 +51,11 @@ public class FeedModel {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
 
-    public String getArticleTitle() { return articleTitle; }
-    public void setArticleTitle(String articleTitle) { this.articleTitle = articleTitle; }
-
     public String getLink() { return link; }
     public void setLink(String link) { this.link = link; }
 
-    public String getImageUrl() { return imageUrl; }
-    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+    public String getNickname() { return nickname; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
     public int getLikes() { return likes; }
     public void setLikes(int likes) { this.likes = likes; }

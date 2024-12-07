@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class FeedFragment extends Fragment {
         args.putString("param1", param1);
         args.putString("param2", param2);
         fragment.setArguments(args);
-        return fragment; // return 문 추가
+        return fragment;
     }
 
     @Override

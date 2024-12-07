@@ -80,55 +80,10 @@
         app:layout_constraintTop_toBottomOf="@+id/contentTextView"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/articleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="기사 제목"
-            android:paddingBottom="4dp"
-            android:textColor="#2E2E2E"
-            android:textSize="18sp"
-            android:maxLines="1"
-            android:ellipsize="end"/>
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp">
-
-            <ImageView
-                android:id="@+id/articleImageArea"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:scaleType="fitXY"/>
-
-        </androidx.cardview.widget.CardView>
-
-
-        <LinearLayout
-            android:id="@+id/moreLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="더 알아보기"
-                android:textSize="15sp"
-                />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="275dp"
-                android:src="@drawable/arrow" />
-
-
-        </LinearLayout>
-
+            app:cardCornerRadius="16dp"/>
 
     </LinearLayout>
 
