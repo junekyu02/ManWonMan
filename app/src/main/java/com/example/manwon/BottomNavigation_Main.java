@@ -41,7 +41,7 @@ public class BottomNavigation_Main extends AppCompatActivity {
                     return true;
                 }
                 if(itemId == R.id.mypage_icon){
-                    transferTo(MyPageFragment.newInstance());    // 마이페이지 아이콘 클릭 시 MyPageFragment로 전환
+                    transferTo(MyPageFragment.newInstance("param1", "param2"));    // 마이페이지 아이콘 클릭 시 MyPageFragment로 전환
                     return true;
                 }
                 return false;
