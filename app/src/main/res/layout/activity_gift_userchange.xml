@@ -75,11 +75,24 @@
         android:scaleType="fitCenter"
         android:src="@drawable/sample_image" />
 
-    <!-- 리사이클러뷰 -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
+    <TextView
+        android:id="@+id/user_writedetail"
         android:layout_width="match_parent"
+        android:layout_height="200dp"
+        />
+
+    <ImageButton
+        android:id="@+id/chatting_buttonimage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/chatting_button" />
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
 
 </LinearLayout>
