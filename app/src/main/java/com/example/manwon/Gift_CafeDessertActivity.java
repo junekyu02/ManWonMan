@@ -14,6 +14,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Gift_CafeDessertActivity extends AppCompatActivity {
@@ -51,6 +52,8 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 itemList.clear(); // 기존 리스트 초기화
+                List<String> cafeDessertBrands = Arrays.asList("스타벅스", "이디야", "투썸플레이스", "할리스", "뻭다방", "메가커피");
+
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     // Firebase에 저장한 gift 데이터 가져오기
                     String title = dataSnapshot.child("title").getValue(String.class);
@@ -58,10 +61,12 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
 
                     // 이미지 리소스는 예제라 임시로 sample_image 사용
                     // 실제로는 이미지 URL을 Firebase Storage에서 받아와 로드하거나, 업로드 구조를 변경해야 함.
-                    int imageRes = R.drawable.sample_image;
+                    if (cafeDessertBrands.contains(itemType)) {
+                        int imageRes = R.drawable.sample_image;
 
-                    Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes);
-                    itemList.add(item);
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes);
+                        itemList.add(item);
+                    }
                 }
                 adapter.notifyDataSetChanged(); // 데이터 변경 후 어댑터 갱신
             }
