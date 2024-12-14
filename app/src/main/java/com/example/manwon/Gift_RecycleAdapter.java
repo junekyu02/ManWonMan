@@ -66,18 +66,18 @@ public class Gift_RecycleAdapter extends RecyclerView.Adapter<Gift_RecycleAdapte
 
     // ViewHolder 클래스 정의
     public static class CafeDessertViewHolder extends RecyclerView.ViewHolder {
-        public TextView tagTextView, titleTextView;
+        public TextView tagTextView, titleTextView, detailButton;
         public ImageView imageView;
-        public ImageButton detailButton, exchangeButton;
+        public ImageButton exchangeButton;
 
         // 생성자
         public CafeDessertViewHolder(View itemView) {
             super(itemView);
-            tagTextView = itemView.findViewById(R.id.tag);
+            tagTextView = itemView.findViewById(R.id.gift_tag);
             titleTextView = itemView.findViewById(R.id.title);
-            imageView = itemView.findViewById(R.id.item_image);
-            detailButton = itemView.findViewById(R.id.detail);
-            exchangeButton = itemView.findViewById(R.id.exchange_button);
+            imageView = itemView.findViewById(R.id.gift_item_image);
+            detailButton = itemView.findViewById(R.id.gift_detail);
+            exchangeButton = itemView.findViewById(R.id.gift_exchange_button);
         }
     }
 }

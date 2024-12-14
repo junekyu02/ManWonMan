@@ -228,7 +228,7 @@ public class ChattingFragment extends Fragment {
     private static final String ARG_SELLER_UID = "sellerUid";
 
     private EditText editTextMessage;
-    private ImageButton buttonSend;
+    private ImageButton buttonSend, backButton; // 백버튼 추가
     private RecyclerView recyclerView;
     private TextView nicknameTextView;
 
@@ -259,6 +259,7 @@ public class ChattingFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         editTextMessage = view.findViewById(R.id.editTextMessage);
         buttonSend = view.findViewById(R.id.buttonSend);
+        backButton = view.findViewById(R.id.regist_back_button); // 백버튼 초기화
         nicknameTextView = view.findViewById(R.id.nickname);
 
         messages = new ArrayList<>();
@@ -290,6 +291,11 @@ public class ChattingFragment extends Fragment {
                 sendMessage(message);
                 editTextMessage.setText("");
             }
+        });
+
+        // 백버튼 동작 추가
+        backButton.setOnClickListener(v -> {
+            requireActivity().getSupportFragmentManager().popBackStack();
         });
 
         return view;

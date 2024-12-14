@@ -4,6 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#277EFF</color>
 
+    <color name="gray">#BBBABA</color>
+
     <color name="button_register_normal_color">#D2D8DD</color>
     <color name="button_register_pressed_color">#A6AEB3</color>
 

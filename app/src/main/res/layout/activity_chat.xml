@@ -15,10 +15,10 @@
 
         <ImageButton
             android:id="@+id/regist_back_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:src="@drawable/arrow_back" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/arrow_back"
+        android:contentDescription="뒤로가기 버튼" /> <!-- 추가: 접근성 설명 -->
 
         <ImageView
             android:layout_width="40dp"
