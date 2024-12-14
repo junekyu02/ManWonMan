@@ -191,12 +191,13 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
                 myRef.push().setValue(addressBtn2.getText().toString());
             }
 
-            // SharedPreferences에 지역 선택 완료 여부 저장
+            // 지역 선택 완료 상태 저장
             SharedPreferences preferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
             SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("RegionSelected", true); // 지역 선택 완료
-            editor.apply();  // SharedPreferences에 지역 선택 완료 여부 저장
+            editor.putBoolean("RegionSelected", true);
+            editor.apply();
 
+            // 메인 화면으로 이동
             Intent intent = new Intent(MapViewActivity.this, BottomNavigation_Main.class);
             startActivity(intent);
             finish();

@@ -133,17 +133,23 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "로그인 성공: " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                            // SharedPreferences에서 지역 선택 여부 확인
+                            // SharedPreferences에서 첫 로그인 여부와 지역 선택 여부 확인
                             SharedPreferences preferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+                            boolean isFirstLogin = preferences.getBoolean("isFirstLogin", true);
                             boolean isRegionSelected = preferences.getBoolean("RegionSelected", false);
 
                             Intent intent;
-                            if (isRegionSelected) {
-                                // 지역 선택 완료된 경우 메인 화면으로 이동
-                                intent = new Intent(LoginActivity.this, BottomNavigation_Main.class);
-                            } else {
-                                // 지역 선택이 안된 경우 지역 선택 화면으로 이동
+                            if (isFirstLogin || !isRegionSelected) {
+                                // 첫 로그인 또는 지역 설정이 안 된 경우 지역 설정 화면으로 이동
                                 intent = new Intent(LoginActivity.this, MapViewActivity.class);
+
+                                // 첫 로그인 플래그를 false로 변경
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putBoolean("isFirstLogin", false);
+                                editor.apply();
+                            } else {
+                                // 지역 설정 완료된 경우 메인 화면으로 이동
+                                intent = new Intent(LoginActivity.this, BottomNavigation_Main.class);
                             }
                             startActivity(intent);
                             finish();

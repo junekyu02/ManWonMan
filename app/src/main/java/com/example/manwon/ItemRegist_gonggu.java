@@ -220,14 +220,16 @@ public class ItemRegist_gonggu extends AppCompatActivity {
                     }
 
                     GongguItem_Model newItem = new GongguItem_Model(
-                            categoryStr.isEmpty()? "기타" : categoryStr,
-                            titleStr.isEmpty()? "제목없음" : titleStr,
-                            contentStr.isEmpty()? "상세 내용 없음" : contentStr,
+                            categoryStr.isEmpty() ? "기타" : categoryStr,
+                            titleStr.isEmpty() ? "제목없음" : titleStr,
+                            contentStr.isEmpty() ? "상세 내용 없음" : contentStr,
                             imgUrlStr,
                             false,
                             0,
-                            targetParticipants
+                            targetParticipants,
+                            userId // 추가: 현재 사용자 ID
                     );
+
 
                     // 현재 사용자 지역정보 가져와서 해당 지역에 저장
                     DatabaseReference locationRef = FirebaseDatabase.getInstance().getReference("location").child(userId);
