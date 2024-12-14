@@ -3,12 +3,16 @@ package com.example.manwon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 
 public class GiftCardMain_Fragment extends Fragment {
@@ -20,6 +24,9 @@ public class GiftCardMain_Fragment extends Fragment {
     // Argument 값을 저장할 변수
     private String mParam1;
     private String mParam2;
+
+    // PopupWindow 변수 선언
+    private PopupWindow popupWindow;
 
     public GiftCardMain_Fragment() {
         // Required empty public constructor
@@ -57,6 +64,52 @@ public class GiftCardMain_Fragment extends Fragment {
             // ItemRegist_Gift로 이동하는 Intent 생성
             Intent intent = new Intent(getActivity(), ItemRegist_Gift.class);
             startActivity(intent);
+        });
+
+        // Initialize PopupWindow
+        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.activity_popup_gift, null);
+        popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        // Set PopupWindow background and animations
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+
+        // Apply elevation to PopupWindow
+        ViewCompat.setElevation(popupView, 8f); // Adjust elevation as needed
+
+        // Show PopupWindow when the help button is touched
+        ImageView helpImageView2 = view.findViewById(R.id.popup_text_gift); // 버튼을 ID로 찾음
+        helpImageView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // Show PopupWindow
+                    popupWindow.showAsDropDown(v, 0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Dismiss the PopupWindow when touched outside
+        View rootView = view.findViewById(R.id.Root); // root 레이아웃을 ID로 찾음
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                }
+                return false;
+            }
         });
 
         return view;
@@ -112,4 +165,3 @@ public class GiftCardMain_Fragment extends Fragment {
         });
     }
 }
-

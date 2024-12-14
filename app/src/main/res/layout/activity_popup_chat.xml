@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/popup_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 이 앱의 채팅방은 사용자 간 거래 소통과 신뢰 구축을 지원하며, 공동구매, 물물교환 등 거래 세부 사항을 안전하게 논의할 수 있는 공간입니다. 지역 인증 기능을 통해 가까운 사용자들과 빠르게 소통하며 거래의 편리함과 지역 커뮤니티 활성화를 돕습니다. "
+        android:textSize="16sp"
+        android:lineSpacingExtra="6dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:background="@drawable/help_popup"/>
+
+</LinearLayout>

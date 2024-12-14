@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.PopupWindow;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +69,51 @@ public class FeedFragment extends Fragment {
         floatingButton.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), FeedWriteActivity.class);
             startActivity(intent);
+        });
+
+        // PopupWindow 초기화
+        LayoutInflater popupInflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+        View popupView = popupInflater.inflate(R.layout.activity_popup_feed, null);
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        // PopupWindow 설정
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+
+        // PopupWindow에 그림자 효과 추가
+        ViewCompat.setElevation(popupView, 8f); // 필요에 따라 그림자 높이 조정
+
+        // helpImageView2를 눌렀을 때 PopupWindow 표시
+        View helpImageView2 = rootView.findViewById(R.id.popup_text_feed); // fragment_feed.xml에 정의된 helpImageView2
+        helpImageView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // PopupWindow 표시
+                    popupWindow.showAsDropDown(v, 0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // 배경 터치 시 PopupWindow 닫기
+        rootView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                }
+                return false;
+            }
         });
 
         return rootView;

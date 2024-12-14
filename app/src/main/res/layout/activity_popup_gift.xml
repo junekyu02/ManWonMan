@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_gravity="center"
+    >
+
+    <TextView
+        android:id="@+id/popup_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" 이 앱의 기프트카드 교환 기능은 사용자가 보유한 기프트카드를 서로 교환하거나 거래할 수 있도록 지원하는 공간입니다. 이를 통해 필요하지 않은 기프트카드를 효율적으로 활용하고, 사용자 간 가치 있는 교환이 이루어질 수 있도록 돕습니다. "
+        android:textSize="16sp"
+        android:lineSpacingExtra="6dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:background="@drawable/help_popup"/>
+
+</LinearLayout>

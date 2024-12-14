@@ -2,12 +2,15 @@ package com.example.manwon;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,13 +44,13 @@ public class ChattingListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_chatting_list, container, false);
 
         recyclerView = view.findViewById(R.id.recycler_view_chat_list);
-        emptyListMessage = view.findViewById(R.id.empty_list_message); 
+        emptyListMessage = view.findViewById(R.id.empty_list_message);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         chatRoomList = new ArrayList<>();
         chatRoomAdapter = new ChatRoomAdapter(chatRoomList, chatRoom -> {
             // 특정 채팅방 클릭 시 ChattingFragment로 이동
-            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId(), chatRoom.getParticipantNickname());
+            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId(), chatRoom.getParticipantUid());
 
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, chattingFragment)
@@ -58,6 +61,51 @@ public class ChattingListFragment extends Fragment {
         recyclerView.setAdapter(chatRoomAdapter);
 
         loadChatRooms();
+
+        // PopupWindow 초기화
+        LayoutInflater popupInflater = (LayoutInflater) getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+        View popupView = popupInflater.inflate(R.layout.activity_popup_chat, null);
+        PopupWindow popupWindow = new PopupWindow(
+                popupView,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                true
+        );
+
+        // PopupWindow 설정
+        popupWindow.setBackgroundDrawable(null);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+
+        // PopupWindow에 그림자 효과 추가
+        ViewCompat.setElevation(popupView, 8f); // 필요에 따라 그림자 높이 조정
+
+        // helpImageView2를 눌렀을 때 PopupWindow 표시
+        View helpImageView2 = view.findViewById(R.id.popup_text_chat); // fragment_chatting_list.xml에 정의된 helpImageView2
+        helpImageView2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    // PopupWindow 표시
+                    popupWindow.showAsDropDown(v, 0, 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // 배경 터치 시 PopupWindow 닫기
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if (popupWindow.isShowing()) {
+                        popupWindow.dismiss();
+                    }
+                }
+                return false;
+            }
+        });
 
         return view;
     }
