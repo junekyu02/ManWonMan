@@ -3,10 +3,11 @@ package com.example.manwon;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Geocoder;
 import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +28,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.manwon.databinding.ActivityMapViewBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
 import com.naver.maps.map.CameraUpdate;
@@ -36,18 +40,6 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
-//import com.google.firebase.auth.FirebaseAuth;
-//import com.google.firebase.database.DatabaseReference;
-//import com.google.firebase.database.FirebaseDatabase;
-//import com.naver.maps.geometry.LatLng;
-//import com.naver.maps.map.CameraAnimation;
-//import com.naver.maps.map.CameraUpdate;
-//import com.naver.maps.map.LocationTrackingMode;
-//import com.naver.maps.map.MapFragment;
-//import com.naver.maps.map.NaverMap;
-//import com.naver.maps.map.OnMapReadyCallback;
-//import com.naver.maps.map.overlay.Marker;
-//import com.naver.maps.map.util.FusedLocationSource;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,10 +49,6 @@ import java.util.Locale;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
-
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MapViewActivity extends AppCompatActivity implements OnMapReadyCallback, ListViewAdapter.OnItemClickListener {
 
@@ -202,6 +190,12 @@ public class MapViewActivity extends AppCompatActivity implements OnMapReadyCall
             if (!addressBtn2.getText().toString().equals("          +")) {
                 myRef.push().setValue(addressBtn2.getText().toString());
             }
+
+            // SharedPreferences에 지역 선택 완료 여부 저장
+            SharedPreferences preferences = getSharedPreferences("UserPreferences", MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("RegionSelected", true); // 지역 선택 완료
+            editor.apply();  // SharedPreferences에 지역 선택 완료 여부 저장
 
             Intent intent = new Intent(MapViewActivity.this, BottomNavigation_Main.class);
             startActivity(intent);
