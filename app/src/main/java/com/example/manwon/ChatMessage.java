@@ -1,19 +1,29 @@
 package com.example.manwon;
 
 public class ChatMessage {
-    private final String message;
-    private final boolean isSent;
+    private String senderUid;
+    private String message;
+    private long timestamp;
 
-    public ChatMessage(String message, boolean isSent) {
+    public ChatMessage() {
+        // Firebase Realtime Database에서 필요로 하는 빈 생성자
+    }
+
+    public ChatMessage(String senderUid, String message, long timestamp) {
+        this.senderUid = senderUid;
         this.message = message;
-        this.isSent = isSent;
+        this.timestamp = timestamp;
+    }
+
+    public String getSenderUid() {
+        return senderUid;
     }
 
     public String getMessage() {
         return message;
     }
 
-    public boolean isSent() {
-        return isSent;
+    public long getTimestamp() {
+        return timestamp;
     }
 }

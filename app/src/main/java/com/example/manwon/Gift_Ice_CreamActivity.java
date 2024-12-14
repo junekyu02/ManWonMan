@@ -22,7 +22,7 @@ public class Gift_Ice_CreamActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Gift_RecycleAdapter adapter;
     private List<Gift_CafeDessertItem> itemList;
-    private DatabaseReference mDatabase; // Firebase reference
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,6 @@ public class Gift_Ice_CreamActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_cafe_dessert);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Firebase 경로 변경: giftcard/gifts
         mDatabase = FirebaseDatabase.getInstance().getReference("giftcard").child("gifts");
 
         itemList = new ArrayList<>();
@@ -42,7 +41,11 @@ public class Gift_Ice_CreamActivity extends AppCompatActivity {
         fetchGiftsFromFirebase();
 
         adapter.setOnItemClickListener(position -> {
+            Gift_CafeDessertItem clickedItem = itemList.get(position);
             Intent intent = new Intent(Gift_Ice_CreamActivity.this, Gift_Userchange_Activity.class);
+            intent.putExtra("sellerUid", clickedItem.getSellerUid());
+            intent.putExtra("itemTitle", clickedItem.getTitle());
+            intent.putExtra("itemType", clickedItem.getTag());
             startActivity(intent);
         });
     }
@@ -51,29 +54,28 @@ public class Gift_Ice_CreamActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                itemList.clear(); // 기존 리스트 초기화
+                itemList.clear();
                 List<String> icecreamBrands = Arrays.asList("베스킨라빈스", "설빙", "요아정", "백미당", "해피콘", "요거트월드");
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    // Firebase에 저장한 gift 데이터 가져오기
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String itemType = dataSnapshot.child("itemType").getValue(String.class);
+                    String sellerUid = dataSnapshot.child("sellerUid").getValue(String.class);
+                    Long timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
 
-                    // 이미지 리소스는 예제라 임시로 sample_image 사용
-                    // 실제로는 이미지 URL을 Firebase Storage에서 받아와 로드하거나, 업로드 구조를 변경해야 함.
-                    if (icecreamBrands.contains(itemType)) {
+                    if (title != null && itemType != null && sellerUid != null && timestamp != null
+                            && icecreamBrands.contains(itemType)) {
                         int imageRes = R.drawable.sample_image;
-
-                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes);
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes, sellerUid, timestamp);
                         itemList.add(item);
                     }
                 }
-                adapter.notifyDataSetChanged(); // 데이터 변경 후 어댑터 갱신
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // 실패 처리
+                // Firebase 에러 처리
             }
         });
     }

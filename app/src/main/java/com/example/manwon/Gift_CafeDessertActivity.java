@@ -32,7 +32,7 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView_cafe_dessert);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Firebase 경로 변경: giftcard/gifts
+        // Firebase 경로 설정
         mDatabase = FirebaseDatabase.getInstance().getReference("giftcard").child("gifts");
 
         itemList = new ArrayList<>();
@@ -42,7 +42,12 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
         fetchGiftsFromFirebase();
 
         adapter.setOnItemClickListener(position -> {
+            Gift_CafeDessertItem clickedItem = itemList.get(position);
+
             Intent intent = new Intent(Gift_CafeDessertActivity.this, Gift_Userchange_Activity.class);
+            intent.putExtra("sellerUid", clickedItem.getSellerUid());
+            intent.putExtra("itemTitle", clickedItem.getTitle());
+            intent.putExtra("itemType", clickedItem.getTag());
             startActivity(intent);
         });
     }
@@ -55,16 +60,19 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
                 List<String> cafeDessertBrands = Arrays.asList("스타벅스", "이디야", "투썸플레이스", "할리스", "뻭다방", "메가커피");
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    // Firebase에 저장한 gift 데이터 가져오기
+                    // Firebase에 저장된 gift 데이터 가져오기
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String itemType = dataSnapshot.child("itemType").getValue(String.class);
+                    String sellerUid = dataSnapshot.child("sellerUid").getValue(String.class);
+                    Long timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
 
-                    // 이미지 리소스는 예제라 임시로 sample_image 사용
-                    // 실제로는 이미지 URL을 Firebase Storage에서 받아와 로드하거나, 업로드 구조를 변경해야 함.
-                    if (cafeDessertBrands.contains(itemType)) {
+                    if (title != null && itemType != null && sellerUid != null && timestamp != null
+                            && cafeDessertBrands.contains(itemType)) {
+                        // 이미지 리소스는 샘플 이미지로 설정
                         int imageRes = R.drawable.sample_image;
 
-                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes);
+                        // Gift_CafeDessertItem 객체 생성
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes, sellerUid, timestamp);
                         itemList.add(item);
                     }
                 }
@@ -73,7 +81,7 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // 실패 처리
+                // Firebase 데이터 로드 실패 처리
             }
         });
     }

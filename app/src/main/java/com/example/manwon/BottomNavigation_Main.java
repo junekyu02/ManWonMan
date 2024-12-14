@@ -15,33 +15,35 @@ public class BottomNavigation_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation_main);    // 레이아웃 설정 (바탕이 되는 화면)
+        setContentView(R.layout.activity_bottom_navigation_main); // 레이아웃 설정 (바탕이 되는 화면)
 
         // BottomNavigationView 객체 초기화
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
         // 아이템(각 항목)이 선택될 때 호출되는 리스너 설정
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int itemId = item.getItemId();
-                if(itemId == R.id.home_icon){
-                    transferTo(HomeFragment.newInstance());    // 홈 아이콘 클릭 시 HomeFragment로 전환
+                if (itemId == R.id.home_icon) {
+                    transferTo(HomeFragment.newInstance()); // 홈 아이콘 클릭 시 HomeFragment로 전환
                     return true;
                 }
-                if(itemId == R.id.giftcard_icon){
-                    transferTo(GiftCardMain_Fragment.newInstance("param1", "param2"));    // 깊카 아이콘 클릭 시 GiftCardMain_Fragment로 전환
+                if (itemId == R.id.giftcard_icon) {
+                    transferTo(GiftCardMain_Fragment.newInstance("param1", "param2")); // 깊카 아이콘 클릭 시 GiftCardMain_Fragment로 전환
                     return true;
                 }
-                if(itemId == R.id.feed_icon){
-                    transferTo(FeedFragment.newInstance("param1", "param2"));    // 피드 아이콘 클릭 시 FeedFragment로 전환
+                if (itemId == R.id.feed_icon) {
+                    transferTo(FeedFragment.newInstance("param1", "param2")); // 피드 아이콘 클릭 시 FeedFragment로 전환
                     return true;
                 }
-                if(itemId == R.id.Chatting_icon){
-                    transferTo(ChattingListFragment.newInstance());    // 채팅 아이콘 클릭 시 ChattingFragment로 전환
+                if (itemId == R.id.Chatting_icon) {
+                    // ChattingListFragment로 전환 (필요한 인자 전달)
+                    transferTo(ChattingListFragment.newInstance());
                     return true;
                 }
-                if(itemId == R.id.mypage_icon){
-                    transferTo(MyPageFragment.newInstance("param1", "param2"));    // 마이페이지 아이콘 클릭 시 MyPageFragment로 전환
+                if (itemId == R.id.mypage_icon) {
+                    transferTo(MyPageFragment.newInstance("param1", "param2")); // 마이페이지 아이콘 클릭 시 MyPageFragment로 전환
                     return true;
                 }
                 return false;
@@ -52,7 +54,7 @@ public class BottomNavigation_Main extends AppCompatActivity {
         bottomNavigationView.setOnItemReselectedListener(new NavigationBarView.OnItemReselectedListener() {
             @Override
             public void onNavigationItemReselected(@NonNull MenuItem item) {
-
+                // 중복 선택 시 동작 없음
             }
         });
 
@@ -61,11 +63,11 @@ public class BottomNavigation_Main extends AppCompatActivity {
     }
 
     // 동적으로 Fragment를 교체하기 위해 사용
-    // 즉, 해당 액티비티에서 특정 버튼을 클릭하면 다른 Fragment를 표시하도록 할 때 이 메서드를 사용.
-    private void transferTo(Fragment fragment){
+    // 즉, 해당 액티비티에서 특정 버튼을 클릭하면 다른 Fragment를 표시하도록 할 때 이 메서드를 사용
+    private void transferTo(Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)// 기존 Fragment를 새로운 Fragment로 교체
+                .addToBackStack(null) // 기존 Fragment를 새로운 Fragment로 교체
                 .commit();
     }
 }

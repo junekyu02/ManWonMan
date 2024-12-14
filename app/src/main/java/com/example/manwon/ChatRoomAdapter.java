@@ -4,22 +4,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
 
-// ChatRoomAdapter: RecyclerView 어댑터
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRoomViewHolder> {
 
-    private List<ChatRoom> chatRoomList; // 채팅방 데이터 리스트
-    private OnChatRoomClickListener listener; // 클릭 이벤트를 처리할 리스너
+    private List<ChatRoom> chatRoomList;
+    private OnChatRoomClickListener listener;
 
-    // 클릭 이벤트 처리를 위한 인터페이스
     public interface OnChatRoomClickListener {
         void onChatRoomClick(ChatRoom chatRoom);
     }
 
-    // ChatRoomAdapter 생성자
     public ChatRoomAdapter(List<ChatRoom> chatRoomList, OnChatRoomClickListener listener) {
         this.chatRoomList = chatRoomList;
         this.listener = listener;
@@ -28,7 +30,6 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
     @NonNull
     @Override
     public ChatRoomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        // item_chat_room 레이아웃을 뷰로 인플레이트
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_chat_room, parent, false);
         return new ChatRoomViewHolder(view);
@@ -36,40 +37,40 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
 
     @Override
     public void onBindViewHolder(@NonNull ChatRoomViewHolder holder, int position) {
-        // 현재 위치의 ChatRoom 데이터 가져오기
         ChatRoom chatRoom = chatRoomList.get(position);
-        holder.bind(chatRoom, listener); // 데이터를 뷰에 바인딩
+        holder.bind(chatRoom, listener);
     }
 
     @Override
     public int getItemCount() {
-        // 데이터 리스트의 크기를 반환
         return chatRoomList.size();
     }
 
-    // ViewHolder: RecyclerView의 각 항목을 관리
     static class ChatRoomViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView tvChatRoomName;
-        private TextView tvLastMessage;
-        private TextView tvChatRoomTime;
+        private final TextView tvChatRoomName;
+        private final TextView tvLastMessage;
+        private final TextView tvChatRoomTime;
 
         public ChatRoomViewHolder(@NonNull View itemView) {
             super(itemView);
-            // item_chat_room.xml의 뷰 초기화
             tvChatRoomName = itemView.findViewById(R.id.tv_chat_room_name);
             tvLastMessage = itemView.findViewById(R.id.tv_last_message);
             tvChatRoomTime = itemView.findViewById(R.id.tv_chat_room_time);
         }
 
         public void bind(ChatRoom chatRoom, OnChatRoomClickListener listener) {
-            // 데이터를 뷰에 설정
-            tvChatRoomName.setText(chatRoom.getRoomName());
-            tvLastMessage.setText(chatRoom.getLastMessage());
-            tvChatRoomTime.setText(chatRoom.getTime());
+            String itemTitle = chatRoom.getItemTitle() != null ? chatRoom.getItemTitle() : "제목 없음"; // 기본값 처리
+            tvChatRoomName.setText(itemTitle); // 아이템 제목을 표시
+            tvLastMessage.setText(chatRoom.getLastMessage() != null ? chatRoom.getLastMessage() : "메시지가 없습니다."); // 메시지 표시
+            tvChatRoomTime.setText(formatTimestamp(chatRoom.getLastMessageTime())); // 시간 표시
 
-            // 클릭 이벤트 처리
             itemView.setOnClickListener(v -> listener.onChatRoomClick(chatRoom));
+        }
+
+        private String formatTimestamp(long timestamp) {
+            if (timestamp <= 0) return ""; // 유효하지 않은 시간 처리
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd HH:mm", Locale.getDefault());
+            return sdf.format(new Date(timestamp));
         }
     }
 }

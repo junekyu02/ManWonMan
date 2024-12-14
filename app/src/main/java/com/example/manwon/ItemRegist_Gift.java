@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,6 +29,7 @@ public class ItemRegist_Gift extends AppCompatActivity {
 
     // Firebase Database 참조
     private DatabaseReference mDatabase;
+    private String currentUserUid; // 현재 사용자 UID
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class ItemRegist_Gift extends AppCompatActivity {
 
         // Firebase Database 초기화
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 현재 로그인한 사용자 UID 가져오기
 
         backButton = findViewById(R.id.back_button);
         uploadImageButton = findViewById(R.id.gift_upload_image);
@@ -90,7 +93,6 @@ public class ItemRegist_Gift extends AppCompatActivity {
 
         // 날짜 선택하도록 표시
         expirationDateEditText.setOnClickListener(v -> {
-            // EditText 클릭 시 힌트를 제거
             expirationDateEditText.setHint("");
 
             // 현재 날짜 값
@@ -100,14 +102,11 @@ public class ItemRegist_Gift extends AppCompatActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, yearSelected, monthSelected, daySelected) -> {
-                // 선택된 날짜를 EditText에 표시
                 String selectedDate = yearSelected + "년 " + (monthSelected + 1) + "월 " + daySelected + "일";
                 expirationDateEditText.setText(selectedDate);
             }, year, month, day);
 
-            // 사용자가 날짜를 선택하지 않고 취소했을 때 호출되는 리스너
             datePickerDialog.setOnCancelListener(dialogInterface -> {
-                // EditText에 날짜가 설정되지 않았다면 힌트를 복원
                 if (expirationDateEditText.getText().toString().trim().isEmpty()) {
                     expirationDateEditText.setHint("터치하여 선택");
                 }
@@ -136,13 +135,10 @@ public class ItemRegist_Gift extends AppCompatActivity {
 
                 if (focusedView instanceof EditText) {
                     EditText editText = (EditText) focusedView;
-                    // 현재 터치한 곳이 EditText가 아닌 경우에만 처리
                     if (v != focusedView) {
-                        // 포커스를 제거하여 커서 숨김
                         editText.clearFocus();
                         editText.setCursorVisible(false);
 
-                        // 입력된 텍스트가 없을 때 힌트 복구
                         if (editText.getText().toString().isEmpty()) {
                             String resourceName = getResources().getResourceEntryName(editText.getId());
                             if (resourceName != null) {
@@ -175,26 +171,6 @@ public class ItemRegist_Gift extends AppCompatActivity {
         Toast.makeText(this, "이미지 업로드 버튼 클릭됨", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && data != null) {
-            String resultText = data.getStringExtra("selectedText");
-            int selectedColor = data.getIntExtra("selectedColor", Color.BLACK);
-
-            if (requestCode == 200) {
-                TextView itemtype1 = findViewById(R.id.gift_itemtype1);
-                itemtype1.setText(resultText);
-                itemtype1.setTextColor(selectedColor);
-            } else if (requestCode == 201) {
-                TextView itemtype2 = findViewById(R.id.gift_preferred_coupon);
-                itemtype2.setText(resultText);
-                itemtype2.setTextColor(selectedColor);
-            }
-        }
-    }
-
     public void onSubmitButtonClick(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(ItemRegist_Gift.this);
         builder.setIcon(R.drawable.registration_warning);
@@ -217,12 +193,19 @@ public class ItemRegist_Gift extends AppCompatActivity {
         String details = detailsEditText.getText().toString().trim();
         String preferredCoupon = preferredCouponText.getText().toString().trim();
 
+        if (title.isEmpty() || itemType.isEmpty() || expirationDate.isEmpty() || details.isEmpty()) {
+            Toast.makeText(this, "모든 필드를 입력해주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         HashMap<String, Object> giftMap = new HashMap<>();
         giftMap.put("title", title);
         giftMap.put("itemType", itemType);
         giftMap.put("expirationDate", expirationDate);
         giftMap.put("details", details);
         giftMap.put("preferredCoupon", preferredCoupon);
+        giftMap.put("sellerUid", currentUserUid); // 등록자 UID 추가
+        giftMap.put("timestamp", System.currentTimeMillis()); // 등록 시간 추가
 
         mDatabase.child("giftcard").child("gifts").push().setValue(giftMap)
                 .addOnCompleteListener(task -> {
@@ -235,5 +218,25 @@ public class ItemRegist_Gift extends AppCompatActivity {
                         Toast.makeText(ItemRegist_Gift.this, "등록 실패. 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && data != null) {
+            String resultText = data.getStringExtra("selectedText");
+            int selectedColor = data.getIntExtra("selectedColor", Color.BLACK);
+
+            if (requestCode == 200) {
+                TextView itemtype1 = findViewById(R.id.gift_itemtype1);
+                itemtype1.setText(resultText);
+                itemtype1.setTextColor(selectedColor);
+            } else if (requestCode == 201) {
+                TextView itemtype2 = findViewById(R.id.gift_preferred_coupon);
+                itemtype2.setText(resultText);
+                itemtype2.setTextColor(selectedColor);
+            }
+        }
     }
 }
