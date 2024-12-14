@@ -37,7 +37,7 @@ public class BottomNavigation_Main extends AppCompatActivity {
                     return true;
                 }
                 if(itemId == R.id.Chatting_icon){
-                    transferTo(ChattingFragment.newInstance());    // 채팅 아이콘 클릭 시 ChattingFragment로 전환
+                    transferTo(ChattingListFragment.newInstance());    // 채팅 아이콘 클릭 시 ChattingFragment로 전환
                     return true;
                 }
                 if(itemId == R.id.mypage_icon){
@@ -64,7 +64,8 @@ public class BottomNavigation_Main extends AppCompatActivity {
     // 즉, 해당 액티비티에서 특정 버튼을 클릭하면 다른 Fragment를 표시하도록 할 때 이 메서드를 사용.
     private void transferTo(Fragment fragment){
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)    // 기존 Fragment를 새로운 Fragment로 교체
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)// 기존 Fragment를 새로운 Fragment로 교체
                 .commit();
     }
 }
