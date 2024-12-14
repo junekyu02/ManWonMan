@@ -47,7 +47,7 @@ public class ChattingListFragment extends Fragment {
         chatRoomList = new ArrayList<>();
         chatRoomAdapter = new ChatRoomAdapter(chatRoomList, chatRoom -> {
             // 특정 채팅방 클릭 시 ChattingFragment로 이동
-            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId());
+            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId(), chatRoom.getParticipantNickname());
 
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, chattingFragment)

@@ -1,3 +1,5 @@
+//
+//
 //package com.example.manwon;
 //
 //import android.os.Bundle;
@@ -8,6 +10,7 @@
 //import android.view.ViewGroup;
 //import android.widget.EditText;
 //import android.widget.ImageButton;
+//import android.widget.TextView;
 //
 //import androidx.annotation.NonNull;
 //import androidx.annotation.Nullable;
@@ -23,11 +26,13 @@
 //import com.google.firebase.database.ValueEventListener;
 //
 //import java.util.ArrayList;
+//import java.util.HashMap;
 //import java.util.List;
+//import java.util.Map;
 //
 //public class ChattingFragment extends Fragment {
 //
-//    private static final String ARG_CHAT_ROOM_ID = "chatRoomId"; // 전달받을 채팅방 ID 키
+//    private static final String ARG_CHAT_ROOM_ID = "chatRoomId";
 //
 //    private EditText editTextMessage;
 //    private ImageButton buttonSend;
@@ -39,7 +44,6 @@
 //    private DatabaseReference chatRoomsRef;
 //    private String chatRoomId;
 //
-//    // ChattingFragment 인스턴스 생성 메서드
 //    public static ChattingFragment newInstance(String chatRoomId) {
 //        ChattingFragment fragment = new ChattingFragment();
 //        Bundle args = new Bundle();
@@ -51,6 +55,7 @@
 //    @Nullable
 //    @Override
 //    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//
 //        View view = inflater.inflate(R.layout.activity_chat, container, false);
 //
 //        recyclerView = view.findViewById(R.id.recyclerView);
@@ -62,25 +67,20 @@
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        recyclerView.setAdapter(chatAdapter);
 //
-//        // Bundle에서 전달된 채팅방 ID 가져오기
 //        if (getArguments() != null) {
 //            chatRoomId = getArguments().getString(ARG_CHAT_ROOM_ID);
 //        }
 //
-//        // 채팅방 ID가 올바른지 확인
 //        if (TextUtils.isEmpty(chatRoomId)) {
 //            Log.e("ChattingFragment", "ChatRoomId is null or empty");
-//            return view; // chatRoomId가 없는 경우 반환
+//            return view;
 //        }
 //
-//        // Firebase 참조 초기화
 //        messagesRef = FirebaseDatabase.getInstance().getReference("Messages").child(chatRoomId);
 //        chatRoomsRef = FirebaseDatabase.getInstance().getReference("ChatRooms");
 //
-//        // 메시지 로드
 //        loadMessages();
 //
-//        // 메시지 전송 버튼 클릭 리스너
 //        buttonSend.setOnClickListener(v -> {
 //            String message = editTextMessage.getText().toString().trim();
 //            if (!TextUtils.isEmpty(message)) {
@@ -105,7 +105,7 @@
 //                }
 //                chatAdapter.notifyDataSetChanged();
 //                if (!messages.isEmpty()) {
-//                    recyclerView.scrollToPosition(messages.size() - 1); // 마지막 메시지로 스크롤
+//                    recyclerView.scrollToPosition(messages.size() - 1);
 //                }
 //            }
 //
@@ -126,48 +126,70 @@
 //        long timestamp = System.currentTimeMillis();
 //        ChatMessage chatMessage = new ChatMessage(senderUid, message, timestamp);
 //
-//        // 메시지를 Firebase에 저장
 //        messagesRef.push().setValue(chatMessage).addOnSuccessListener(aVoid -> {
 //            updateChatRoom(senderUid, message, timestamp);
 //        }).addOnFailureListener(e -> Log.e("ChattingFragment", "Failed to send message", e));
 //    }
 //
 //    private void updateChatRoom(String senderUid, String lastMessage, long timestamp) {
-//        // giftcard/gifts 경로에서 아이템 제목 가져오기
-//        DatabaseReference giftsRef = FirebaseDatabase.getInstance().getReference("giftcard").child("gifts");
+//        // Firebase에서 sellerUid를 기반으로 nickname 가져오기
+//        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(senderUid);
 //
-//        giftsRef.orderByChild("sellerUid").equalTo(senderUid).addListenerForSingleValueEvent(new ValueEventListener() {
+//        userRef.child("nickname").addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                // 아이템 제목을 저장할 final 변수
-//                final String[] itemTitleHolder = {"제목 없음"}; // 기본값 설정
-//
-//                for (DataSnapshot data : snapshot.getChildren()) {
-//                    // 첫 번째 일치 항목의 제목 가져오기
-//                    String fetchedTitle = data.child("title").getValue(String.class);
-//                    if (fetchedTitle != null) {
-//                        itemTitleHolder[0] = fetchedTitle;
-//                    }
-//                    break;
+//                String nickname = snapshot.getValue(String.class);
+//                if (nickname == null || nickname.isEmpty()) {
+//                    nickname = "알 수 없는 사용자"; // 기본값
 //                }
 //
-//                // ChatRoom 업데이트
-//                String itemTitle = itemTitleHolder[0];
-//                ChatRoom chatRoom = new ChatRoom(chatRoomId, lastMessage, timestamp, senderUid, itemTitle);
-//                chatRoomsRef.child(chatRoomId).setValue(chatRoom).addOnSuccessListener(aVoid -> {
-//                    Log.d("ChattingFragment", "ChatRoom updated successfully with item title: " + itemTitle);
+//                // 채팅방 데이터 업데이트
+//                Map<String, Object> chatRoomData = new HashMap<>();
+//                chatRoomData.put("roomId", chatRoomId);
+//                chatRoomData.put("lastMessage", lastMessage);
+//                chatRoomData.put("lastMessageTime", timestamp);
+//                chatRoomData.put("participantUid", senderUid);
+//                chatRoomData.put("nickname", nickname); // 닉네임 추가
+//                chatRoomData.put("itemTitle", "채팅방 제목"); // 필요시 제목 로직 추가
+//
+//                chatRoomsRef.child(chatRoomId).updateChildren(chatRoomData).addOnSuccessListener(aVoid -> {
+//                    Log.d("ChattingFragment", "ChatRoom updated successfully with nickname: " + nickname);
 //                }).addOnFailureListener(e -> Log.e("ChattingFragment", "Failed to update ChatRoom", e));
 //            }
 //
 //            @Override
 //            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.e("ChattingFragment", "Failed to fetch item title", error.toException());
+//                Log.e("ChattingFragment", "Failed to fetch nickname", error.toException());
 //            }
 //        });
 //    }
 //
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        // UI 요소 초기화
+//        TextView chatRoomTitle = view.findViewById(R.id.nickname);
+//
+//        // Firebase에서 닉네임 가져오기
+//        DatabaseReference chatRoomRef = chatRoomsRef.child(chatRoomId);
+//
+//        chatRoomRef.child("nickname").addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String nickname = snapshot.getValue(String.class);
+//                chatRoomTitle.setText(nickname != null ? nickname : "알 수 없는 사용자");
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.e("ChattingFragment", "Failed to fetch chat room nickname", error.toException());
+//            }
+//        });
+//    }
+//
+//
 //}
-
 
 package com.example.manwon;
 
@@ -179,6 +201,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -201,21 +224,26 @@ import java.util.Map;
 public class ChattingFragment extends Fragment {
 
     private static final String ARG_CHAT_ROOM_ID = "chatRoomId";
+    private static final String ARG_SELLER_UID = "sellerUid"; // 등록자 UID를 전달받기 위한 키
 
     private EditText editTextMessage;
     private ImageButton buttonSend;
     private RecyclerView recyclerView;
+    private TextView nicknameTextView; // 닉네임을 표시할 TextView
 
     private Chat_Adapter chatAdapter;
     private List<ChatMessage> messages;
     private DatabaseReference messagesRef;
     private DatabaseReference chatRoomsRef;
+    private DatabaseReference usersRef;
     private String chatRoomId;
+    private String sellerUid; // 등록자의 UID
 
-    public static ChattingFragment newInstance(String chatRoomId) {
+    public static ChattingFragment newInstance(String chatRoomId, String sellerUid) {
         ChattingFragment fragment = new ChattingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CHAT_ROOM_ID, chatRoomId);
+        args.putString(ARG_SELLER_UID, sellerUid); // sellerUid 전달
         fragment.setArguments(args);
         return fragment;
     }
@@ -223,11 +251,13 @@ public class ChattingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.activity_chat, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerView);
         editTextMessage = view.findViewById(R.id.editTextMessage);
         buttonSend = view.findViewById(R.id.buttonSend);
+        nicknameTextView = view.findViewById(R.id.nickname); // 닉네임 표시 TextView 초기화
 
         messages = new ArrayList<>();
         chatAdapter = new Chat_Adapter(messages);
@@ -236,6 +266,7 @@ public class ChattingFragment extends Fragment {
 
         if (getArguments() != null) {
             chatRoomId = getArguments().getString(ARG_CHAT_ROOM_ID);
+            sellerUid = getArguments().getString(ARG_SELLER_UID); // sellerUid 가져오기
         }
 
         if (TextUtils.isEmpty(chatRoomId)) {
@@ -245,8 +276,10 @@ public class ChattingFragment extends Fragment {
 
         messagesRef = FirebaseDatabase.getInstance().getReference("Messages").child(chatRoomId);
         chatRoomsRef = FirebaseDatabase.getInstance().getReference("ChatRooms");
+        usersRef = FirebaseDatabase.getInstance().getReference("users");
 
         loadMessages();
+        loadSellerNickname(); // 등록자의 닉네임을 가져와 TextView에 표시
 
         buttonSend.setOnClickListener(v -> {
             String message = editTextMessage.getText().toString().trim();
@@ -283,6 +316,33 @@ public class ChattingFragment extends Fragment {
         });
     }
 
+    private void loadSellerNickname() {
+        if (TextUtils.isEmpty(sellerUid)) {
+            Log.e("ChattingFragment", "SellerUid is null or empty");
+            nicknameTextView.setText("알 수 없는 사용자");
+            return;
+        }
+
+        // Firebase에서 sellerUid 기반으로 닉네임 가져오기
+        usersRef.child(sellerUid).child("nickname").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String nickname = snapshot.getValue(String.class);
+                if (nickname != null && !nickname.isEmpty()) {
+                    nicknameTextView.setText(nickname); // 닉네임 TextView에 설정
+                } else {
+                    nicknameTextView.setText("알 수 없는 사용자");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("ChattingFragment", "Failed to load seller nickname", error.toException());
+                nicknameTextView.setText("알 수 없는 사용자");
+            }
+        });
+    }
+
     private void sendMessage(String message) {
         String senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (TextUtils.isEmpty(senderUid)) {
@@ -304,10 +364,10 @@ public class ChattingFragment extends Fragment {
         chatRoomData.put("lastMessage", lastMessage);
         chatRoomData.put("lastMessageTime", timestamp);
         chatRoomData.put("participantUid", senderUid);
-        chatRoomData.put("itemTitle", "채팅방 제목"); // 필요시 제목 로직 추가
 
         chatRoomsRef.child(chatRoomId).updateChildren(chatRoomData).addOnSuccessListener(aVoid -> {
             Log.d("ChattingFragment", "ChatRoom updated successfully");
         }).addOnFailureListener(e -> Log.e("ChattingFragment", "Failed to update ChatRoom", e));
     }
 }
+
