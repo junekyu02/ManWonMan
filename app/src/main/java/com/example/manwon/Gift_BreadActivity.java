@@ -43,10 +43,12 @@ public class Gift_BreadActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(position -> {
             Gift_CafeDessertItem clickedItem = itemList.get(position);
 
-            Intent intent = new Intent(Gift_BreadActivity.this, ChattingFragment.class);
+            Intent intent = new Intent(Gift_BreadActivity.this, Gift_Userchange_Activity.class);
+            intent.putExtra("giftId", clickedItem.getGiftId());
             intent.putExtra("sellerUid", clickedItem.getSellerUid());
             intent.putExtra("itemTitle", clickedItem.getTitle());
             intent.putExtra("itemType", clickedItem.getTag());
+            intent.putExtra("detail", clickedItem.getDetail()); // 상세 설명 전달
             startActivity(intent);
         });
     }
@@ -55,17 +57,23 @@ public class Gift_BreadActivity extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                itemList.clear();
+                itemList.clear(); // 기존 리스트 초기화
                 List<String> breadBrands = Arrays.asList("파리바게트", "뜌레쥬르", "던킨도너츠", "크리스피크림도넛", "와플대학", "홍루이젠");
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String giftId = dataSnapshot.getKey();
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String itemType = dataSnapshot.child("itemType").getValue(String.class);
                     String sellerUid = dataSnapshot.child("sellerUid").getValue(String.class);
+                    String detail = dataSnapshot.child("details").getValue(String.class); // 상세 설명 가져오기
+                    Long timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
 
-                    if (title != null && itemType != null && sellerUid != null && breadBrands.contains(itemType)) {
+                    if (title != null && itemType != null && sellerUid != null && detail != null
+                            && breadBrands.contains(itemType)) {
                         int imageRes = R.drawable.sample_image;
-                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes, sellerUid, 0);
+
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(
+                                giftId, itemType, title, detail, imageRes, sellerUid, timestamp != null ? timestamp : 0);
                         itemList.add(item);
                     }
                 }
@@ -74,8 +82,9 @@ public class Gift_BreadActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Error 처리
+                // Firebase 에러 처리
             }
         });
     }
 }
+

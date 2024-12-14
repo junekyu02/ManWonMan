@@ -58,15 +58,18 @@ public class Gift_ChickenActivity extends AppCompatActivity {
                 List<String> chickenBrands = Arrays.asList("BBQ", "BHC", "굽네치킨", "교촌치킨", "푸라닭", "60계 치킨");
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String giftId = dataSnapshot.getKey(); // Firebase의 key를 giftId로 사용
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String itemType = dataSnapshot.child("itemType").getValue(String.class);
                     String sellerUid = dataSnapshot.child("sellerUid").getValue(String.class);
+                    String detail = dataSnapshot.child("detail").getValue(String.class); // 상세 설명 가져오기
                     Long timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
 
                     if (title != null && itemType != null && sellerUid != null && timestamp != null
                             && chickenBrands.contains(itemType)) {
                         int imageRes = R.drawable.sample_image;
-                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes, sellerUid, timestamp);
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(
+                                giftId, itemType, title, detail, imageRes, sellerUid, timestamp != null ? timestamp : 0);
                         itemList.add(item);
                     }
                 }

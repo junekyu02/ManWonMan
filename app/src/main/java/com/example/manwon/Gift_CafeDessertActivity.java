@@ -44,7 +44,10 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(position -> {
             Gift_CafeDessertItem clickedItem = itemList.get(position);
 
+            // Intent로 데이터 전달
             Intent intent = new Intent(Gift_CafeDessertActivity.this, Gift_Userchange_Activity.class);
+            intent.putExtra("giftId", clickedItem.getGiftId());
+            intent.putExtra("detail", clickedItem.getDetail());
             intent.putExtra("sellerUid", clickedItem.getSellerUid());
             intent.putExtra("itemTitle", clickedItem.getTitle());
             intent.putExtra("itemType", clickedItem.getTag());
@@ -57,22 +60,24 @@ public class Gift_CafeDessertActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 itemList.clear(); // 기존 리스트 초기화
-                List<String> cafeDessertBrands = Arrays.asList("스타벅스", "이디야", "투썸플레이스", "할리스", "뻭다방", "메가커피");
+                List<String> cafeDessertBrands = Arrays.asList("스타벅스", "이디야", "투썸플레이스", "할리스", "빽다방", "메가커피");
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    // Firebase에 저장된 gift 데이터 가져오기
+                    String giftId = dataSnapshot.getKey(); // Firebase의 key를 giftId로 사용
                     String title = dataSnapshot.child("title").getValue(String.class);
                     String itemType = dataSnapshot.child("itemType").getValue(String.class);
                     String sellerUid = dataSnapshot.child("sellerUid").getValue(String.class);
+                    String detail = dataSnapshot.child("details").getValue(String.class); // 상세 설명 가져오기
                     Long timestamp = dataSnapshot.child("timestamp").getValue(Long.class);
 
-                    if (title != null && itemType != null && sellerUid != null && timestamp != null
+                    if (title != null && itemType != null && sellerUid != null && detail != null
                             && cafeDessertBrands.contains(itemType)) {
                         // 이미지 리소스는 샘플 이미지로 설정
                         int imageRes = R.drawable.sample_image;
 
                         // Gift_CafeDessertItem 객체 생성
-                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(itemType, title, imageRes, sellerUid, timestamp);
+                        Gift_CafeDessertItem item = new Gift_CafeDessertItem(
+                                giftId, itemType, title, detail, imageRes, sellerUid, timestamp != null ? timestamp : 0);
                         itemList.add(item);
                     }
                 }
