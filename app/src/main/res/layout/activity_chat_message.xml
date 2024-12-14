@@ -14,6 +14,15 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone">
 
+        <!-- 닉네임 -->
+        <TextView
+            android:id="@+id/text_received_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
         <TextView
             android:id="@+id/text_received_message"
             android:layout_width="wrap_content"
@@ -40,6 +49,16 @@
         android:orientation="vertical"
         android:layout_marginBottom="8dp"
         android:visibility="gone">
+
+        <!-- 닉네임 -->
+        <TextView
+            android:id="@+id/text_sent_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone" /> <!-- 보낸 사람의 닉네임은 보통 숨김 -->
 
         <TextView
             android:id="@+id/text_sent_message"

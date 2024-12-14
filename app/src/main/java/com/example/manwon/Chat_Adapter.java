@@ -127,13 +127,23 @@ public class Chat_Adapter extends RecyclerView.Adapter<Chat_Adapter.ChatViewHold
         String formattedTime = formatTimestamp(chatMessage.getTimestamp());
 
         if (isSentByCurrentUser) {
+            // 보낸 메시지 레이아웃 설정
             holder.sentLayout.setVisibility(View.VISIBLE);
             holder.sentMessage.setText(chatMessage.getMessage());
             holder.sentTimestamp.setText(formattedTime);
         } else {
+            // 받은 메시지 레이아웃 설정
             holder.receivedLayout.setVisibility(View.VISIBLE);
             holder.receivedMessage.setText(chatMessage.getMessage());
             holder.receivedTimestamp.setText(formattedTime);
+
+            // 닉네임 설정
+            if (chatMessage.getSenderNickname() != null && !chatMessage.getSenderNickname().isEmpty()) {
+                holder.receivedNickname.setText(chatMessage.getSenderNickname());
+                holder.receivedNickname.setVisibility(View.VISIBLE);
+            } else {
+                holder.receivedNickname.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -148,7 +158,7 @@ public class Chat_Adapter extends RecyclerView.Adapter<Chat_Adapter.ChatViewHold
     }
 
     static class ChatViewHolder extends RecyclerView.ViewHolder {
-        TextView sentMessage, receivedMessage, sentTimestamp, receivedTimestamp;
+        TextView sentMessage, receivedMessage, sentTimestamp, receivedTimestamp, receivedNickname;
         View sentLayout, receivedLayout;
 
         public ChatViewHolder(@NonNull View itemView) {
@@ -159,6 +169,7 @@ public class Chat_Adapter extends RecyclerView.Adapter<Chat_Adapter.ChatViewHold
             receivedMessage = itemView.findViewById(R.id.text_received_message);
             sentTimestamp = itemView.findViewById(R.id.text_sent_timestamp);
             receivedTimestamp = itemView.findViewById(R.id.text_received_timestamp);
+            receivedNickname = itemView.findViewById(R.id.text_received_nickname); // 받은 메시지 닉네임
         }
     }
 }

@@ -191,6 +191,7 @@
 //
 //}
 
+
 package com.example.manwon;
 
 import android.os.Bundle;
@@ -224,12 +225,12 @@ import java.util.Map;
 public class ChattingFragment extends Fragment {
 
     private static final String ARG_CHAT_ROOM_ID = "chatRoomId";
-    private static final String ARG_SELLER_UID = "sellerUid"; // 등록자 UID를 전달받기 위한 키
+    private static final String ARG_SELLER_UID = "sellerUid";
 
     private EditText editTextMessage;
     private ImageButton buttonSend;
     private RecyclerView recyclerView;
-    private TextView nicknameTextView; // 닉네임을 표시할 TextView
+    private TextView nicknameTextView;
 
     private Chat_Adapter chatAdapter;
     private List<ChatMessage> messages;
@@ -237,13 +238,14 @@ public class ChattingFragment extends Fragment {
     private DatabaseReference chatRoomsRef;
     private DatabaseReference usersRef;
     private String chatRoomId;
-    private String sellerUid; // 등록자의 UID
+    private String sellerUid;
+    private String senderNickname; // 현재 사용자의 닉네임
 
     public static ChattingFragment newInstance(String chatRoomId, String sellerUid) {
         ChattingFragment fragment = new ChattingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CHAT_ROOM_ID, chatRoomId);
-        args.putString(ARG_SELLER_UID, sellerUid); // sellerUid 전달
+        args.putString(ARG_SELLER_UID, sellerUid);
         fragment.setArguments(args);
         return fragment;
     }
@@ -257,7 +259,7 @@ public class ChattingFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         editTextMessage = view.findViewById(R.id.editTextMessage);
         buttonSend = view.findViewById(R.id.buttonSend);
-        nicknameTextView = view.findViewById(R.id.nickname); // 닉네임 표시 TextView 초기화
+        nicknameTextView = view.findViewById(R.id.nickname);
 
         messages = new ArrayList<>();
         chatAdapter = new Chat_Adapter(messages);
@@ -266,7 +268,7 @@ public class ChattingFragment extends Fragment {
 
         if (getArguments() != null) {
             chatRoomId = getArguments().getString(ARG_CHAT_ROOM_ID);
-            sellerUid = getArguments().getString(ARG_SELLER_UID); // sellerUid 가져오기
+            sellerUid = getArguments().getString(ARG_SELLER_UID);
         }
 
         if (TextUtils.isEmpty(chatRoomId)) {
@@ -278,6 +280,7 @@ public class ChattingFragment extends Fragment {
         chatRoomsRef = FirebaseDatabase.getInstance().getReference("ChatRooms");
         usersRef = FirebaseDatabase.getInstance().getReference("users");
 
+        loadSenderNickname(); // 현재 사용자의 닉네임을 로드
         loadMessages();
         loadSellerNickname(); // 등록자의 닉네임을 가져와 TextView에 표시
 
@@ -323,13 +326,12 @@ public class ChattingFragment extends Fragment {
             return;
         }
 
-        // Firebase에서 sellerUid 기반으로 닉네임 가져오기
         usersRef.child(sellerUid).child("nickname").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String nickname = snapshot.getValue(String.class);
                 if (nickname != null && !nickname.isEmpty()) {
-                    nicknameTextView.setText(nickname); // 닉네임 TextView에 설정
+                    nicknameTextView.setText(nickname);
                 } else {
                     nicknameTextView.setText("알 수 없는 사용자");
                 }
@@ -343,6 +345,30 @@ public class ChattingFragment extends Fragment {
         });
     }
 
+    private void loadSenderNickname() {
+        String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        if (TextUtils.isEmpty(currentUserUid)) {
+            Log.e("ChattingFragment", "Current user UID is null or empty");
+            return;
+        }
+
+        usersRef.child(currentUserUid).child("nickname").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                senderNickname = snapshot.getValue(String.class);
+                if (TextUtils.isEmpty(senderNickname)) {
+                    senderNickname = "알 수 없는 사용자";
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("ChattingFragment", "Failed to load sender nickname", error.toException());
+                senderNickname = "알 수 없는 사용자";
+            }
+        });
+    }
+
     private void sendMessage(String message) {
         String senderUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         if (TextUtils.isEmpty(senderUid)) {
@@ -351,7 +377,7 @@ public class ChattingFragment extends Fragment {
         }
 
         long timestamp = System.currentTimeMillis();
-        ChatMessage chatMessage = new ChatMessage(senderUid, message, timestamp);
+        ChatMessage chatMessage = new ChatMessage(senderUid, message, timestamp, senderNickname);
 
         messagesRef.push().setValue(chatMessage).addOnSuccessListener(aVoid -> {
             updateChatRoom(senderUid, message, timestamp);
