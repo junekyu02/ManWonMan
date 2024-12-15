@@ -217,6 +217,7 @@
                 android:src="@drawable/mypage_locationsetting" />
 
             <TextView
+                android:id="@+id/setlocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"

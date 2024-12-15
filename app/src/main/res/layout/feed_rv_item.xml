@@ -10,7 +10,7 @@
         android:id="@+id/imageArea"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/baseline_person_pin_24"
+        android:src="@drawable/navigationbar_mypageicon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingClass" />
@@ -124,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="댓글 9999개 모두 보기"
+        android:text="댓글 모두 보기"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/likesTextView" />
 

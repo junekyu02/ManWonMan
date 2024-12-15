@@ -138,7 +138,7 @@ public class FeedFragment extends Fragment {
                 for (DataSnapshot data : snapshot.getChildren()) {
                     FeedModel model = data.getValue(FeedModel.class);
                     if (model != null) {
-                        feedItems.add(model);
+                        feedItems.add(0, model);
                     }
                 }
                 adapter.notifyDataSetChanged();

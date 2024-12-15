@@ -108,6 +108,7 @@
 
 package com.example.manwon;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -136,6 +137,7 @@ public class MyPageFragment extends Fragment {
 
     private DatabaseReference databaseReference;
     private String userId;
+    private View setlocation;
 
     public static MyPageFragment newInstance(String param1, String param2) {
         MyPageFragment fragment = new MyPageFragment();
@@ -146,6 +148,7 @@ public class MyPageFragment extends Fragment {
         return fragment;
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // 프래그먼트의 레이아웃을 설정합니다.
@@ -160,6 +163,7 @@ public class MyPageFragment extends Fragment {
         emailTextView = rootView.findViewById(R.id.userEmail);
         locationTextView = rootView.findViewById(R.id.userLocation);
         logoutButton = rootView.findViewById(R.id.logoutButton);
+        setlocation = rootView.findViewById(R.id.setlocation);
 
         // Firebase에서 사용자 정보 불러오기
         loadUserData();
@@ -173,6 +177,12 @@ public class MyPageFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        setlocation.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), MapViewActivity.class);
+            startActivity(intent);
+        });
+
 
         // 파라미터 처리 (만약 필요하면)
         if (getArguments() != null) {
