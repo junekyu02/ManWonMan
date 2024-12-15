@@ -10,7 +10,12 @@
         android:id="@+id/popup_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" '메인'화면은 지역인증 통해 같은 지역에 있는 사람들과 공동구매를 하고, 물건을 교환하는 플랫폼입니다. \n 물건을 공동구매하는 '같이 살까'와 교환을 희망하는 물건을 선택하고 내 물건과 교환할 물건을 등록하는 '등록 할까', 그리고 다른 사람들이 등록한 물건을 볼 수 있는 '교환 할까'가 있습니다. "
+        android:text=" '메인'화면은 지역인증 통해 같은 지역에 있는 사람들\n
+과 공동구매를 하고, 물건을 교환하는 플랫폼입니다.\n
+물건을 공동구매하는 '같이 살까'와 교환을 희망하는\n
+물건을 선택하고 내 물건과 교환할 물건을 등록하는\n
+'등록 할까', 그리고 다른 사람들이 등록한 물건을 볼\n
+수 있는 '교환 할까'가 있습니다. "
         android:textSize="16sp"
         android:lineSpacingExtra="6dp"
         android:gravity="center"
