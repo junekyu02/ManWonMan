@@ -178,12 +178,30 @@
 
     <ImageButton
         android:id="@+id/gift_upload_image"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="50dp"
-        android:src="@drawable/regist_camera_button"
-        android:contentDescription="image upload button"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        android:layout_marginTop="10dp"
+        android:background="@drawable/regist_rounded_edittext"
+        android:src="@drawable/regist_camera_button" />
+
+    <ImageView
+        android:id="@+id/selected_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerCrop"
+        android:visibility="gone" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:layout_marginTop="2dp"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:textColor="#A9A9A9"
+        android:text="이미지 등록하기"/>
 
     <Button
         android:id="@+id/submit_button_gift"
