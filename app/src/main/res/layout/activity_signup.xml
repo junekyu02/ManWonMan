@@ -29,7 +29,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="                                       현명한 소비생활을 즐기고 싶다면?"
+        android:text="                      현명한 소비생활을 즐기고 싶다면?"
         android:textColor="@color/black"
         android:textSize="15sp" />
 
