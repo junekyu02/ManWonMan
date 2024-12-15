@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="195dp"
-    android:background="#B7B0B0">
+    android:background="#EDEEF0">
+
+
 
     <!-- 왼쪽 : 유형, 제목, 상세 내용 더보기 (클릭 가능한 텍스트) -->
     <LinearLayout
@@ -45,18 +47,19 @@
     </LinearLayout>
 
     <!-- 상세 내용 더보기 (클릭되는 텍스트) -->
-    <TextView
-        android:id="@+id/itemDetailsText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="상세 내용 더보기"
-        android:textSize="12sp"
-        android:textColor="#FFFFFF"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="80dp"
-        android:layout_marginBottom="25dp"/>
 
     <!-- 오른쪽 : 이미지, 찜하기 -->
+    <TextView
+        android:id="@+id/itemDetailsText"
+        android:layout_width="230dp"
+        android:layout_height="35dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="20dp"
+        android:text="상세 내용 더보기"
+        android:textColor="#000000"
+        android:textSize="12sp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="구매 참여하기"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:textSize="11sp" />
 
                 <!-- 구매 참여하기 버튼 -->
@@ -119,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="현재 참여 수"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:textSize="11sp" />
 
                 <TextView
@@ -146,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="목표 참여 수"
-                    android:textColor="#FFFFFF"
+                    android:textColor="#000000"
                     android:textSize="11sp" />
 
                 <TextView
