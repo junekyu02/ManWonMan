@@ -109,12 +109,12 @@
 
             <ImageButton
                 android:id="@+id/chatting_buttonimage"
-                android:layout_width="56dp"
-                android:layout_height="56dp"
+                android:layout_width="341dp"
+                android:layout_height="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="채팅 버튼"
-                android:src="@drawable/chatting_button"
-                android:elevation="8dp" />
+                android:elevation="8dp"
+                android:src="@drawable/chat2" />
         </LinearLayout>
 
         <!-- Fragment Container -->

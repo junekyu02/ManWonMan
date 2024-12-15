@@ -55,6 +55,10 @@ public class ChatRoom {
         return itemTitle;
     }
 
+    public void setItemTitle(String itemTitle) {
+        this.itemTitle = itemTitle;
+    }
+
     public String getParticipantNickname() {
         return participantNickname;
     }

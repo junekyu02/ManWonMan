@@ -240,12 +240,14 @@ public class ChattingFragment extends Fragment {
     private String chatRoomId;
     private String sellerUid;
     private String senderNickname; // 현재 사용자의 닉네임
+    private String itemTitle;
 
-    public static ChattingFragment newInstance(String chatRoomId, String sellerUid) {
+    public static ChattingFragment newInstance(String chatRoomId, String sellerUid, String itemTitle) {
         ChattingFragment fragment = new ChattingFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CHAT_ROOM_ID, chatRoomId);
         args.putString(ARG_SELLER_UID, sellerUid);
+        args.putString("itemTitle", itemTitle);
         fragment.setArguments(args);
         return fragment;
     }
@@ -270,6 +272,7 @@ public class ChattingFragment extends Fragment {
         if (getArguments() != null) {
             chatRoomId = getArguments().getString(ARG_CHAT_ROOM_ID);
             sellerUid = getArguments().getString(ARG_SELLER_UID);
+            itemTitle = getArguments().getString("itemTitle");
         }
 
         if (TextUtils.isEmpty(chatRoomId)) {
@@ -386,16 +389,17 @@ public class ChattingFragment extends Fragment {
         ChatMessage chatMessage = new ChatMessage(senderUid, message, timestamp, senderNickname);
 
         messagesRef.push().setValue(chatMessage).addOnSuccessListener(aVoid -> {
-            updateChatRoom(senderUid, message, timestamp);
+            updateChatRoom(senderUid, message, timestamp, itemTitle);
         }).addOnFailureListener(e -> Log.e("ChattingFragment", "Failed to send message", e));
     }
 
-    private void updateChatRoom(String senderUid, String lastMessage, long timestamp) {
+    private void updateChatRoom(String senderUid, String lastMessage, long timestamp, String itemTitle) {
         Map<String, Object> chatRoomData = new HashMap<>();
         chatRoomData.put("roomId", chatRoomId);
         chatRoomData.put("lastMessage", lastMessage);
         chatRoomData.put("lastMessageTime", timestamp);
         chatRoomData.put("participantUid", senderUid);
+        chatRoomData.put("itemTitle", itemTitle);
 
         chatRoomsRef.child(chatRoomId).updateChildren(chatRoomData).addOnSuccessListener(aVoid -> {
             Log.d("ChattingFragment", "ChatRoom updated successfully");

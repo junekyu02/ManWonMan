@@ -67,7 +67,7 @@ public class Gift_Userchange_Activity extends AppCompatActivity {
 
             // 프래그먼트로 채팅 화면 전환
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, ChattingFragment.newInstance(chatRoomId,sellerUid))
+                    .replace(R.id.fragment_container, ChattingFragment.newInstance(chatRoomId,sellerUid,itemTitle))
                     .addToBackStack(null)
                     .commit();
         });

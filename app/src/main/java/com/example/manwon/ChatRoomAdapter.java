@@ -59,8 +59,8 @@ public class ChatRoomAdapter extends RecyclerView.Adapter<ChatRoomAdapter.ChatRo
         }
 
         public void bind(ChatRoom chatRoom, OnChatRoomClickListener listener) {
-            String itemTitle = chatRoom.getItemTitle() != null ? chatRoom.getItemTitle() : "제목 없음"; // 기본값 처리
-            tvChatRoomName.setText(itemTitle); // 아이템 제목을 표시
+
+            tvChatRoomName.setText(chatRoom.getItemTitle()); // 채팅방 이름 설정
             tvLastMessage.setText(chatRoom.getLastMessage() != null ? chatRoom.getLastMessage() : "메시지가 없습니다."); // 메시지 표시
             tvChatRoomTime.setText(formatTimestamp(chatRoom.getLastMessageTime())); // 시간 표시
 

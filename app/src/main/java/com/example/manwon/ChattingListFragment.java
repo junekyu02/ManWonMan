@@ -1,5 +1,6 @@
 package com.example.manwon;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -7,9 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -50,7 +53,7 @@ public class ChattingListFragment extends Fragment {
         chatRoomList = new ArrayList<>();
         chatRoomAdapter = new ChatRoomAdapter(chatRoomList, chatRoom -> {
             // 특정 채팅방 클릭 시 ChattingFragment로 이동
-            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId(), chatRoom.getParticipantUid());
+            ChattingFragment chattingFragment = ChattingFragment.newInstance(chatRoom.getRoomId(), chatRoom.getParticipantUid(), chatRoom.getItemTitle());
 
             getActivity().getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, chattingFragment)
@@ -109,6 +112,20 @@ public class ChattingListFragment extends Fragment {
 
         return view;
     }
+
+
+    public void showDeleteDialog(Context context, int position, GongguItem_Adapter adapter) {
+        new AlertDialog.Builder(context)
+                .setTitle("삭제 확인")
+                .setMessage("해당 아이템을 삭제하시겠습니까?")
+                .setPositiveButton("삭제", (dialog, which) -> {
+                    adapter.removeItem(position);
+                    Toast.makeText(context, "아이템이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
+                })
+                .setNegativeButton("취소", (dialog, which) -> adapter.notifyItemChanged(position))
+                .show();
+    }
+
 
     private void loadChatRooms() {
         String currentUserUid = FirebaseAuth.getInstance().getCurrentUser().getUid();
