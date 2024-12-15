@@ -169,15 +169,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <ImageButton
-                android:id="@+id/camera_imagebutton"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="81dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/regist_camera_button"
-                android:background="@drawable/regist_rounded_edittext"/>
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="15dp"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:text="6. 사진 등록"/>
 
+            <!-- 추가된 이미지 버튼과 미리보기 이미지 뷰 -->
+            <ImageButton
+                android:id="@+id/camera_imagebutton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/regist_rounded_edittext"
+                android:src="@drawable/regist_camera_button" />
+
+            <ImageView
+                android:id="@+id/selected_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -163,22 +163,24 @@
 
 package com.example.manwon;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.Build;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.NotificationCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 
 import java.util.List;
 
@@ -212,10 +214,25 @@ public class GongguItem_Adapter extends RecyclerView.Adapter<GongguItem_Adapter.
         holder.itemTitle.setText(item.getItemTitle());
         holder.itemDetailsText.setText(item.getItemDetailsText());
 
-        // 이미지 URL을 사용하려면 Glide 등 라이브러리 사용 권장:
-        // Glide.with(holder.itemView.getContext()).load(item.getImageUrl()).into(holder.itemImage);
-        // 여기서는 일단 기본 아이콘으로:
-        holder.itemImage.setImageResource(R.drawable.marking_on);
+        // Glide를 사용하여 이미지 로드 (갤러리 URI 지원)
+        Glide.with(holder.itemView.getContext())
+                .load(item.getImageUrl())
+                .placeholder(R.drawable.marking_on) // 기본 이미지
+                .error(R.drawable.marking_off) // 오류 시 이미지
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        Log.e("GongguItem_Adapter", "Failed to load image: " + item.getImageUrl(), e);
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        Log.d("GongguItem_Adapter", "Image loaded: " + item.getImageUrl());
+                        return false;
+                    }
+                })
+                .into(holder.itemImage);
 
         holder.currentParticipantsText.setText(String.valueOf(item.getCurrentParticipants()));
         holder.targetParticipantsText.setText(String.valueOf(item.getTargetParticipants()));
@@ -239,16 +256,12 @@ public class GongguItem_Adapter extends RecyclerView.Adapter<GongguItem_Adapter.
         new AlertDialog.Builder(holder.itemView.getContext())
                 .setIcon(R.drawable.registration_warning)
                 .setTitle("공동구매 참여 신청 재확인")
-                .setMessage("정말로 해당 물품의 공동구매에 참여하시겠습니까?\n\n  ※ 목표 참여 수 도달 시 알림이 발송됩니다.")
+                .setMessage("정말로 해당 물품의 공동구매에 참여하시겠습니까?")
                 .setPositiveButton("확인", (dialog, which) -> {
                     item.setParticipating(true);
                     item.setCurrentParticipants(item.getCurrentParticipants() + 1);
                     holder.marking.setImageResource(R.drawable.participant_on);
                     holder.currentParticipantsText.setText(String.valueOf(item.getCurrentParticipants()));
-
-                    if (item.getCurrentParticipants() >= item.getTargetParticipants()) {
-                        sendNotification(holder.itemView.getContext(), item.getItemTitle());
-                    }
                 })
                 .setNegativeButton("취소", null)
                 .show();
@@ -265,51 +278,6 @@ public class GongguItem_Adapter extends RecyclerView.Adapter<GongguItem_Adapter.
                     holder.currentParticipantsText.setText(String.valueOf(item.getCurrentParticipants()));
                 })
                 .setNegativeButton("취소", null)
-                .show();
-    }
-
-    public void sendNotification(Context context, String itemTitle) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    "gonggu_channel",
-                    "공동구매 알림",
-                    NotificationManager.IMPORTANCE_DEFAULT
-            );
-            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (manager != null) {
-                manager.createNotificationChannel(channel);
-            }
-        }
-
-        Notification notification = new NotificationCompat.Builder(context, "gonggu_channel")
-                .setContentTitle("공동구매 목표 달성!")
-                .setContentText("\"" + itemTitle + "\" 항목이 공동구매 목표 참여자 수에 도달했습니다!")
-                .setSmallIcon(R.drawable.gonggu_notification)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .build();
-
-        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (notificationManager != null) {
-            int notificationId = itemTitle.hashCode();
-            notificationManager.notify(notificationId, notification);
-        }
-    }
-
-    /**
-     * 삭제 요청 다이얼로그 표시.
-     * @param context Context 객체
-     * @param position 삭제할 아이템의 위치
-     * @param adapter RecyclerView Adapter
-     */
-    public void showDeleteDialog(Context context, int position, GongguItem_Adapter adapter) {
-        new AlertDialog.Builder(context)
-                .setTitle("삭제 확인")
-                .setMessage("해당 아이템을 삭제하시겠습니까?")
-                .setPositiveButton("삭제", (dialog, which) -> {
-                    adapter.removeItem(position);
-                    Toast.makeText(context, "아이템이 삭제되었습니다.", Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("취소", (dialog, which) -> adapter.notifyItemChanged(position))
                 .show();
     }
 
@@ -339,3 +307,4 @@ public class GongguItem_Adapter extends RecyclerView.Adapter<GongguItem_Adapter.
         }
     }
 }
+

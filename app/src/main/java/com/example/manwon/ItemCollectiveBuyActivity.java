@@ -231,6 +231,7 @@ import java.util.List;
 
 public class ItemCollectiveBuyActivity extends AppCompatActivity {
 
+    private static final int REQUEST_PERMISSION_READ_STORAGE = 100;
     private RecyclerView recyclerView;
     private GongguItem_Adapter adapter;
     private List<GongguItem_Model> gongguItemList;
@@ -303,7 +304,43 @@ public class ItemCollectiveBuyActivity extends AppCompatActivity {
 
         ImageButton overflowButton = findViewById(R.id.overflowIcon);
         overflowButton.setOnClickListener(this::showPopupMenu);
+
+
+
+        checkPermission(); // 권한 확인 및 요청
+
     }
+
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // Android 13 이상: READ_MEDIA_IMAGES 권한 사용
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_MEDIA_IMAGES)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_MEDIA_IMAGES},
+                        REQUEST_PERMISSION_READ_STORAGE);
+            }
+        } else {
+            // Android 12 이하: READ_EXTERNAL_STORAGE 권한 사용
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_PERMISSION_READ_STORAGE);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_PERMISSION_READ_STORAGE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "스토리지 접근 권한이 허용되었습니다.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "스토리지 접근 권한이 거부되었습니다. 이미지를 로드할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     private void loadGongguItemsForRegion(String region) {
         if (region == null || region.isEmpty()) return;
@@ -360,13 +397,6 @@ public class ItemCollectiveBuyActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions,
-                                           int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // 권한 처리 로직 필요시 추가
-    }
 
     private void attachSwipeToDelete(RecyclerView recyclerView, GongguItem_Adapter adapter) {
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
